@@ -29,15 +29,15 @@ export default function TweetComponent({ tweet }: { tweet: Tweet }) {
 								</div>
 								{/* Optionally render media if exists */}
 								{tweet.media?.map((media, index) => (
-										<div key={index} className="mt-2">
-												{media.type === 'image' ? (
-														<img src={media.url} alt={media.altText || 'Tweet image'} className="max-w-full rounded-lg" />
-												) : (
-														<video controls src={media.url} className="max-w-full rounded-lg">
-																{media.altText ? <track kind="descriptions" label="descriptions" srcLang="en" /> : null}
-														</video>
-												)}
-										</div>
+									<div key={index} className="mt-2 w-full h-64 overflow-hidden rounded-lg relative">
+										{media.type === 'image' ? (
+											<img src={media.url} alt={media.altText || 'Tweet image'} className="h-full object-cover absolute" />
+										) : (
+											<video controls src={media.url} className="w-full h-full object-cover absolute">
+												{media.altText ? <track kind="descriptions" label="descriptions" srcLang="en" /> : null}
+											</video>
+										)}
+									</div>
 								))}
 								{/* Displaying some engagement metrics */}
 								<div className="mt-2 text-sm text-gray-400">
