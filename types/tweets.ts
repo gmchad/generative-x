@@ -31,6 +31,4 @@ export type Tweet = {
     // quotedTweet?: Tweet; // For quoted tweets - NOTE: removed for simplicity
 };
 
-export type Tweets = Tweet[];
-
 // query: ?tweets=

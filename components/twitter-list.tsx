@@ -312,7 +312,7 @@ export default function TwitterList() {
 		// take tweets passed as Query Params or use the initialTweets as fallback
 		const queryParams = useSearchParams();
 		const queryTweetsEncoded = queryParams.get('tweets') || null;
-		const queryTweets = queryTweetsEncoded ? JSON.parse(decodeURIComponent(queryTweetsEncoded)) : null;
+		const queryTweets = queryTweetsEncoded ? JSON.parse(decodeURIComponent(queryTweetsEncoded)) as TweetType[] : null;
 
 		const [displayedTweets, setDisplayedTweets] = useState(queryTweets || initialTweets);
 		const [currentIndex, setCurrentIndex] = useState(0);
