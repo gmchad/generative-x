@@ -29,6 +29,10 @@ function parseTweetsFromTimeline(eTimeline) {
         const [eHandle, _spacer, eTimeC] = eHandleParts.children[0].children;
         const userName = eUserName.innerText;
         const userHandle = eHandle.querySelectorAll('a > div')[0].innerText;
+        if (!eTimeC) {
+            console.log('Time not found', eHandleParts, eUserAndHandle);
+            return null;
+        }
         const eTweetTime = eTimeC.querySelectorAll('a > time')[0];
         const tweetISOTime = eTweetTime.getAttribute('datetime')
 
@@ -87,7 +91,12 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 
 
     // @Timeline: parse and then replace
-    const eTimeline = document.querySelector('[aria-label="Timeline: Your Home Timeline"]');
+    let eTimeline = document.querySelector('[aria-label="Timeline: Your Home Timeline"]');
+    if (!eTimeline) {
+        // retry with a per-person timeline
+        eTimeline = document.querySelector('[aria-labelledby="accessible-list-0"] > div:nth-child(2)');
+        console.log('Timeline not found, trying the per-person timeline',eTimeline[0]);
+    }
     if (!eTimeline)
         return console.log('Timeline not found');
     console.log('Timeline found:', eTimeline);
