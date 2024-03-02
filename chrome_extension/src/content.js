@@ -49,7 +49,8 @@ function parseTweetsFromTimeline(eTimeline) {
         // Body > (next?):Embeds
         let tweetImageURLs = [];
         if (eEmbed) {
-            tweetImageURLs = Array.from(eEmbed.querySelectorAll('img'))
+            // NOTE:using imd with alt="Image", which may be restrictive, but it's the best we can do atm
+            tweetImageURLs = Array.from(eEmbed.querySelectorAll('div > img[alt="Image"]'))
                 .filter(e => e.src && e.src.indexOf('/emoji/v2/') === -1)
                 .map(e => e.src);
         }
@@ -95,7 +96,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     if (!eTimeline) {
         // retry with a per-person timeline
         eTimeline = document.querySelector('[aria-labelledby="accessible-list-0"] > div:nth-child(2)');
-        console.log('Timeline not found, trying the per-person timeline',eTimeline[0]);
+        console.log('Timeline not found, trying the per-person timeline', eTimeline[0]);
     }
     if (!eTimeline)
         return console.log('Timeline not found');
