@@ -1,5 +1,6 @@
 'use client'
 import { useState, useRef, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import Tweet from "@/components/tweet";
 import { Button } from "./ui/button";
 import { Tweet as TweetType, TwitterUser, TweetMedia, TweetEngagement } from "@/types/tweets";
@@ -308,7 +309,12 @@ let initialTweets: TweetType[] = [
 	]
 
 export default function TwitterList() {
-		const [displayedTweets, setDisplayedTweets] = useState(initialTweets);
+		// take tweets passed as Query Params or use the initialTweets as fallback
+		const queryParams = useSearchParams();
+		const queryTweetsEncoded = queryParams.get('tweets') || null;
+		const queryTweets = queryTweetsEncoded ? JSON.parse(decodeURIComponent(queryTweetsEncoded)) : null;
+
+		const [displayedTweets, setDisplayedTweets] = useState(queryTweets || initialTweets);
 		const [currentIndex, setCurrentIndex] = useState(0);
 		const endOfListRef = useRef<HTMLDivElement>(null);
 
