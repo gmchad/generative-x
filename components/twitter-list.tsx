@@ -333,7 +333,7 @@ export default function TwitterList() {
 		return (
 				<div className="w-full rounded sm:rounded-lg">
 						{displayedTweets.length > 0 ? displayedTweets.map((tweet, index) => (
-								<Tweet key={index} tweet={tweet} />
+								<Tweet key={tweet.id} tweet={tweet} />
 						)) : (
 								<p className="p-4 text-center text-gray-500 dark:text-gray-400">No tweets to display</p>
 						)}
