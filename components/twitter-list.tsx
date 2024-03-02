@@ -320,7 +320,8 @@ export default function TwitterList() {
 
 		useEffect(() => {
 				// Scroll to the bottom of the list whenever displayedTweets changes
-				endOfListRef.current?.scrollIntoView({ behavior: "smooth" });
+				// NOTE: disabled because if does on the first scroll when embedding the page on Twitter
+				// endOfListRef.current?.scrollIntoView({ behavior: "smooth" });
 		}, [displayedTweets]);
 
 		const addTweet = () => {
