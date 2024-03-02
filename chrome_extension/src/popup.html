@@ -38,7 +38,7 @@
         }
 
         body {
-            color: #333;
+            color: #CCC;
             font-family: 'Inter', sans-serif;
             font-size: 16px;
             line-height: 1;
@@ -46,13 +46,14 @@
 
 
         .menu-main {
+            display: grid;
             padding: 1rem;
-            /*min-width: 160px*/
-            background-color: #eee;
+            min-width: 180px;
+            background-color: black;
         }
 
         .menu-title {
-            font-size: 12px;
+            font-size: 14px;
             white-space: nowrap;
         }
 
@@ -87,20 +88,24 @@
         }
 
         .filter-button:hover {
-            background-color: orangered;
+            background-color: lime;
             /*font-weight: 600;*/
             cursor: pointer;
+        }
+
+        .filter-button.disabled:hover {
+            background-color: orangered;
         }
     </style>
 </head>
 <body>
 
 <div class="menu-main">
-    <div class="menu-title">&#10024; SPCxOAI Hackathon</div>
-    <h1 class="menu-text">Select Target:</h1>
+    <div class="menu-title">SPCxOAI Hackathon</div>
+    <h1 class="menu-text">Generative Filters</h1>
     <button class="filter-button bolder" id="xTimelineButton">&#120143; Timeline</button>
-    <button class="filter-button" id="fbFilterButton">Facebook Feed</button>
-    <button class="filter-button" id="moreFilterButton">More...</button>
+    <button class="filter-button disabled" id="fbFilterButton">Facebook Feed</button>
+    <button class="filter-button disabled" id="moreFilterButton">More...</button>
 </div>
 
 <script src="popup.js"></script>

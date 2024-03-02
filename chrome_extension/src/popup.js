@@ -1,11 +1,7 @@
-function filterTwitterTimeline() {
-    console.log('SCRAPE....');
-}
-
 document.getElementById('xTimelineButton').addEventListener('click', () => {
     chrome.tabs.query({active: true, currentWindow: true}, function (tabs) {
         console.log('Sending message to content.js');
-        chrome.tabs.sendMessage(tabs[0].id, {action: "fudgeXTimeline"});
+        chrome.tabs.sendMessage(tabs[0].id, {action: "parseXTimeline"});
     });
 });
 
