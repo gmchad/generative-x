@@ -9,7 +9,6 @@ function parseTweetsFromTimeline(eTimeline) {
         console.log('Tweets not found');
         return null;
     }
-    console.log('Tweets found:', eItems);
 
     return eItems.map(eItem => {
         const [_eReposted, eTweetC] = eItem.children;
@@ -91,25 +90,34 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
         return console.log('Timeline not found');
     console.log('Timeline found:', eTimeline);
 
-
     // Scrape Tweets from the timeline
     const tweets = parseTweetsFromTimeline(eTimeline);
     console.log('Tweets:', tweets);
+    const queryString = encodeURIComponent(JSON.stringify(tweets));
 
-
-    // IFrame to our Frontend
-    // const timelineHeight = Math.max(600, eTimeline.offsetHeight);
-    // const iFrontend = document.createElement('iframe');
-    // iFrontend.src = 'https://spc-openai-hackathon.vercel.app/';
-    // iFrontend.style.width = '100%'; // Adjust width as needed
-    // iFrontend.style.height = `${timelineHeight}px`; // Set height to match the replaced eTimeline
-    // iFrontend.frameBorder = '0'; // remove border
-    // eTimeline.parentNode.insertBefore(iFrontend, eTimeline);
+    // IFrame to our Frontend, passing Tweets as Query
+    const iFrameHeight = Math.max(600, eTimeline.offsetHeight);
+    const iFrontend = document.createElement('iframe');
+    iFrontend.src = `https://spc-openai-hackathon.vercel.app/?tweets=${queryString}`;
+    iFrontend.frameBorder = '0';
+    // iFrontend.scrolling = 'no';
+    iFrontend.style.width = '100%';
+    iFrontend.style.height = `${iFrameHeight}px`;
+    iFrontend.style.zIndex = '1';
+    eTimeline.parentNode.insertBefore(iFrontend, eTimeline);
 
     // Hide the timeline
     // NOTE: not doing it because otherwise the "end of page refresher" will run continuously, fetching more and more tweets
     // eTimeline.style.display = 'none';
 
+    // update the timeline to be below and invisible
+    eTimeline.parentNode.style.position = 'relative';
+    eTimeline.style.position = 'absolute';
+    eTimeline.style.left = '0';
+    eTimeline.style.right = '0';
+    eTimeline.style.top = '0';
+    // eTimeline.style.zIndex = '-1';
+    // eTimeline.style.visibility = 'hidden';
 
     // @Home: hide the 'new tweet' blocks
     const eHome = document.querySelector('[aria-label="Home timeline"]');
@@ -128,4 +136,3 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     sendResponse({data: "some data"});
 
 });
-
