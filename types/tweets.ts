@@ -1,17 +1,17 @@
-type TwitterUser = {
+export type TwitterUser = {
     username: string;
     displayName: string;
     verified: boolean;
     avatarUrl: string;
 };
 
-type TweetMedia = {
+export type TweetMedia = {
     type: 'image' | 'video';
     url: string;
     altText?: string;
 };
 
-type TweetEngagement = {
+export type TweetEngagement = {
     replies: number;
     reposts: number;
     likes: number;
@@ -19,7 +19,7 @@ type TweetEngagement = {
     views: number;
 };
 
-type Tweet = {
+export type Tweet = {
     id: string;
     user: TwitterUser;
     content: string;
