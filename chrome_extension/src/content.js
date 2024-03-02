@@ -45,7 +45,9 @@ function parseTweetsFromTimeline(eTimeline) {
         // Body > (next?):Embeds
         let tweetImageURLs = [];
         if (eEmbed) {
-            tweetImageURLs = Array.from(eEmbed.querySelectorAll('img')).filter(e => e.src).map(e => e.src);
+            tweetImageURLs = Array.from(eEmbed.querySelectorAll('img'))
+                .filter(e => e.src && e.src.indexOf('/emoji/v2/') === -1)
+                .map(e => e.src);
         }
 
         // Body > (last):Stats
