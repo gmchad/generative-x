@@ -1,10 +1,15 @@
-function scrapeTweetsFromTimeline(eTimeline) {
+/**
+ * Reconstruct Tweets (the the TypeScript definition) from the timeline HTML element
+ */
+function parseTweetsFromTimeline(eTimeline) {
 
     // @Tweets - note that the nth-child is 2, because the first sibling is "Name.. reposted.." (if present)
     const eItems = Array.from(eTimeline.querySelectorAll('div > article > div > div'));
-    if (!eItems.length)
-        return console.log('Tweets not found');
-    console.log('Tweets:', eItems);
+    if (!eItems.length) {
+        console.log('Tweets not found');
+        return null;
+    }
+    console.log('Tweets found:', eItems);
 
     return eItems.map(eItem => {
         const [_eReposted, eTweetC] = eItem.children;
@@ -25,7 +30,13 @@ function scrapeTweetsFromTimeline(eTimeline) {
         const [eHandle, _spacer, eTimeC] = eHandleParts.children[0].children;
         const userName = eUserName.innerText;
         const userHandle = eHandle.querySelectorAll('a > div')[0].innerText;
-        const tweetISOTime = eTimeC.querySelectorAll('a > time')[0].getAttribute('datetime');
+        const eTweetTime = eTimeC.querySelectorAll('a > time')[0];
+        const tweetISOTime = eTweetTime.getAttribute('datetime')
+
+        // to find the ID of the tweet, we parse it from the time link
+        const eTweetTimeLink = eTweetTime.parentElement;
+        const tweetLink = eTweetTimeLink.getAttribute('href');
+        const tweetID = tweetLink.split('/').pop();
 
         // Body > 1:Tweet Text
         // NOTE: only use the first part, because the rest are 'show more...'
@@ -33,30 +44,48 @@ function scrapeTweetsFromTimeline(eTimeline) {
         const tweetText = eTextParts ? eTextParts.innerText : null;
 
         // Body > (next?):Embeds
+        let tweetImageURLs = [];
         if (eEmbed) {
-            const eEmbedImageURLs = Array.from(eEmbed.querySelectorAll('img')).filter(e => e.src).map(e => e.src);
-            console.log('Image:', eEmbedImageURLs);
+            tweetImageURLs = Array.from(eEmbed.querySelectorAll('img')).filter(e => e.src).map(e => e.src);
         }
 
         // Body > (last):Stats
         const [eStatsReply, eStatsRepost, eStatsLike, eStatsView] = eStats.querySelectorAll('& > div > div > div');
-        const tweetStats = {
+        const tweetEngagement = {
             replies: eStatsReply.innerText?.trim() || '',
             reposts: eStatsRepost.innerText?.trim() || '',
             likes: eStatsLike.innerText?.trim() || '',
             views: eStatsView.innerText?.trim() || '',
         };
 
-
+        // make sure this stays in sync with the 'Tweet' type in the frontend
+        return {
+            id: tweetID,
+            link: tweetLink,
+            user: {
+                username: userHandle || '@elonmusk',
+                displayName: userName || 'Elon Musk',
+                avatarUrl: userAvatarURL || 'https://pbs.twimg.com/profile_images/1683325380441128960/yRsRRjGO_400x400.jpg',
+                verified: false, // TODO
+            },
+            content: tweetText || '',
+            media: tweetImageURLs.length >= 1 ? tweetImageURLs.map(url => ({
+                type: 'image',
+                url: url,
+                altText: undefined,
+            })) : undefined,
+            engagement: tweetEngagement,
+            timestamp: tweetISOTime,
+        }
     });
 }
 
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-    if (request.action !== "fudgeXTimeline")
+    if (request.action !== "parseXTimeline")
         return;
 
 
-    // @Timeline
+    // @Timeline: parse and then replace
     const eTimeline = document.querySelector('[aria-label="Timeline: Your Home Timeline"]');
     if (!eTimeline)
         return console.log('Timeline not found');
@@ -64,7 +93,8 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 
 
     // Scrape Tweets from the timeline
-    const tweets = scrapeTweetsFromTimeline(eTimeline);
+    const tweets = parseTweetsFromTimeline(eTimeline);
+    console.log('Tweets:', tweets);
 
 
     // IFrame to our Frontend
@@ -81,7 +111,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     // eTimeline.style.display = 'none';
 
 
-    // @Home
+    // @Home: hide the 'new tweet' blocks
     const eHome = document.querySelector('[aria-label="Home timeline"]');
     if (eHome) {
         // Check if eHome has exactly 5 div children
