@@ -21,7 +21,7 @@ export default function TweetComponent({ tweet }: { tweet: Tweet }) {
 												<CheckBadgeIcon className="ml-1 text-blue-500 w-5 h-5" aria-label="Verified" />
 										)}
 										<span className="ml-2 text-sm text-gray-400">
-												@{tweet.user.username} · {formatDate(tweet.timestamp)}
+												{tweet.user.username /* has @ */} · {formatDate(tweet.timestamp)}
 										</span>
 								</div>
 								<div className="mt-2 text-sm leading-snug text-gray-200">
