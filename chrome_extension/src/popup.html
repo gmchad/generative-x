@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Sparkles Menu</title>
+    <!-- Style Menu -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <style>
+        html, body, div, span, applet, object, iframe,
+        h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+        a, abbr, acronym, address, big, cite, code,
+        del, dfn, em, img, ins, kbd, q, s, samp,
+        small, strike, strong, sub, sup, tt, var,
+        b, u, i, center,
+        dl, dt, dd, ol, ul, li,
+        fieldset, form, label, legend,
+        table, caption, tbody, tfoot, thead, tr, th, td,
+        article, aside, canvas, details, embed,
+        figure, figcaption, footer, header, hgroup,
+        menu, nav, output, ruby, section, summary,
+        time, mark, audio, video {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            font: inherit;
+            vertical-align: baseline;
+        }
+
+        /* HTML5 display-role reset for older browsers */
+        article, aside, details, figcaption, figure,
+        footer, header, hgroup, menu, nav, section {
+            display: block;
+        }
+
+        ol, ul {
+            list-style: none;
+        }
+
+        body {
+            color: #333;
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            line-height: 1;
+        }
+
+
+        .menu-main {
+            padding: 1rem;
+            /*min-width: 160px*/
+            background-color: #eee;
+        }
+
+        .menu-title {
+            font-size: 12px;
+            white-space: nowrap;
+        }
+
+        .menu-text {
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            margin-top: 2rem;
+        }
+
+        .filter-button {
+            background-color: #ddd;
+            color: #333;
+            font-size: 14px;
+            /*font-weight: 600;*/
+            border-radius: 6px;
+            /*border: 1px solid #bbb;*/
+            border: none;
+            padding: 8px 16px;
+            margin-top: 0.25rem;
+            min-width: 160px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin-bottom: 0.5rem;
+            text-align: left;
+            transition: all 0.2s;
+        }
+
+        .filter-button:hover {
+            background-color: orangered;
+            /*font-weight: 600;*/
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<div class="menu-main">
+    <div class="menu-title">&#10024; SPCxOAI Hackathon</div>
+    <h1 class="menu-text">Select Target</h1>
+    <button class="filter-button" id="xFilterButton">Twitter Feed</button>
+    <button class="filter-button" id="fbFilterButton">Facebook Feed</button>
+    <button class="filter-button" id="moreFilterButton">More...</button>
+</div>
+
+<script src="popup.js"></script>
+</body>
+</html>
