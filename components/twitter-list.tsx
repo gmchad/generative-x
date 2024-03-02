@@ -96,7 +96,7 @@ export default function TwitterList() {
 		};
 
 		return (
-				<div className="w-full max-w-lg rounded border sm:rounded-lg">
+				<div className="w-full rounded sm:rounded-lg">
 						{displayedTweets.length > 0 ? displayedTweets.map((tweet, index) => (
 								<Tweet key={index} tweet={tweet} />
 						)) : (
