@@ -1,5 +1,5 @@
 // components/Tweet.js
-import { Avatar } from "@/components/ui/avatar";
+import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { UserIcon, CheckBadgeIcon } from '@heroicons/react/20/solid';
 import { Tweet } from "@/types/tweets";
 import { formatDate } from "@/lib/utils";
@@ -9,6 +9,7 @@ export default function TweetComponent({ tweet }: { tweet: Tweet }) {
 				<div className="flex border-b border-gray-700 p-4 bg-black">
 						<div className="mr-4">
 								<Avatar className="h-10 w-10">
+										<AvatarImage src={tweet.user.avatarUrl || "https://github.com/shadcn.png"} alt={tweet.user.username} />
 										{/* Fallback icon in case Avatar component doesn't handle missing images */}
 										<UserIcon className="text-gray-300" height="40" width="40" />
 								</Avatar>
