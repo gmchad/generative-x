@@ -30,7 +30,7 @@ function parseTweetsFromTimeline(eTimeline) {
         const userName = eUserName.innerText;
         const userHandle = eHandle.querySelectorAll('a > div')[0].innerText;
         if (!eTimeC) {
-            console.log('Time not found', eHandleParts, eUserAndHandle);
+            console.log('Time not found', eHandleParts, eUserAndHandle, eItems);
             return null;
         }
         const eTweetTime = eTimeC.querySelectorAll('a > time')[0];
@@ -82,7 +82,7 @@ function parseTweetsFromTimeline(eTimeline) {
             engagement: tweetEngagement,
             timestamp: tweetISOTime,
         }
-    });
+    }).filter(Boolean);
 }
 
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
