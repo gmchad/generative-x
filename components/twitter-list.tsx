@@ -12,7 +12,7 @@ let initialTweets = [
 ];
 
 export default function TwitterList() {
-		const [displayedTweets, setDisplayedTweets] = useState([]);
+		const [displayedTweets, setDisplayedTweets] = useState(initialTweets);
 		const [currentIndex, setCurrentIndex] = useState(0);
 		const endOfListRef = useRef<HTMLDivElement>(null);
 
