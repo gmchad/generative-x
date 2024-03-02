@@ -11,24 +11,26 @@ export type TweetMedia = {
     altText?: string;
 };
 
+// NOTE: updated strings, to just render as-is (with ...K, or ...M)
 export type TweetEngagement = {
-    replies: number;
-    reposts: number;
-    likes: number;
-    bookmarks: number;
-    views: number;
+    replies: string;
+    reposts: string;
+    likes: string;
+    views: string;
+    // bookmarks: string;
 };
 
 export type Tweet = {
     id: string;
+    link: string,
     user: TwitterUser;
     content: string;
     media?: TweetMedia[];
     engagement: TweetEngagement;
     timestamp: string; // ISO 8601 format
-    quotedTweet?: Tweet; // For quoted tweets
+    // quotedTweet?: Tweet; // For quoted tweets - NOTE: removed for simplicity
 };
 
-type Tweets = Tweet[];
+export type Tweets = Tweet[];
 
-// query: ?tweets={...}
+// query: ?tweets=
