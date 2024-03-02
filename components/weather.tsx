@@ -24,7 +24,7 @@ export const Weather = ({
 	description: String;
 }) => {
 	return (
-		<div className="flex items-center justify-center w-full p-4">
+		<div className="flex items-center justify-start w-full p-4">
 			<Card className="w-full max-w-sm">
 				<CardContent className="p-6">
 					<div className="flex items-center gap-4">

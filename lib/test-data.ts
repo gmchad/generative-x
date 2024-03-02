@@ -25,6 +25,24 @@ export async function getWeather(location: string, unit: string) {
 
 export const tweetData: Tweet[] = [
 	{
+		"id": "1763801233339634089",
+		"link": "/Scobleizer/status/1763801233339634089",
+		"user": {
+			"username": "@Scobleizer",
+			"displayName": "Robert Scoble",
+			"avatarUrl": "https://pbs.twimg.com/profile_images/1719781327527133184/oOgZZpVK_x96.jpg",
+			"verified": false
+		},
+		"content": "The streets of San Francisco are glistening under the steady drizzle today. Rainy days like this bring a certain charm to the city, making every coffee shop corner a cozy refuge. ☔🌁 #SanFranciscoRain",
+		"engagement": {
+			"replies": "12",
+			"reposts": "5",
+			"likes": "87",
+			"views": "10K"
+		},
+		"timestamp": "2024-03-02T10:15:30.000Z"
+	},
+	{
 		"id": "1763656445545849004",
 		"link": "/USFWS/status/1763656445545849004",
 		"user": {

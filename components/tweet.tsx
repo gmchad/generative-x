@@ -4,7 +4,7 @@ import { UserIcon, CheckBadgeIcon } from '@heroicons/react/20/solid';
 import { Tweet } from "@/types/tweets";
 import { formatDate } from "@/lib/utils";
 
-export default function TweetComponent({ tweet }: { tweet: Tweet }) {
+export default function TweetComponent({ tweet, DynamicComponent }: { tweet: Tweet, DynamicComponent?: React.ReactNode }) {
 		return (
 				<div className="flex border-b border-gray-700 p-4 bg-black">
 						<div className="mr-4">
@@ -27,6 +27,12 @@ export default function TweetComponent({ tweet }: { tweet: Tweet }) {
 								<div className="mt-2 text-sm leading-snug text-gray-200">
 										<p>{tweet.content}</p>
 								</div>
+								{/* Render DynamicComponent if it exists */}
+								{DynamicComponent && (
+									<div className="flex justify-start mt-2 overflow-hidden rounded-lg relative">
+										{DynamicComponent}
+									</div>
+								)}
 								{/* Optionally render media if exists */}
 								{tweet.media?.map((media, index) => (
 									<div key={index} className="mt-2 w-full h-64 overflow-hidden rounded-lg relative">

@@ -8,13 +8,16 @@ import { Weather } from '@/components/weather';
 import { getWeather } from '@/lib/test-data';
 import { z } from 'zod';
 import OpenAI from 'openai';
+import TweetComponentSkeleton from '@/components/tweetskeleton';
+import TweetComponent from '@/components/tweet';
+import { Tweet } from '@/types/tweets';
 
 
 const openai = new OpenAI({
 	apiKey: process.env.OPENAI_API_KEY || '',
 });
 
-async function submitTweet(content: string) {
+async function submitTweet(tweet: Tweet) {
 	'use server';
 
 	const aiState = getMutableAIState<typeof AI>();
@@ -22,13 +25,11 @@ async function submitTweet(content: string) {
 		...aiState.get(),
 		{
 			role: 'user',
-			content,
+			content: JSON.stringify(tweet),
 		},
 	]);
 
-	const reply = createStreamableUI(
-		<BotMessage className="items-center">{spinner}</BotMessage>,
-	);
+	const reply = createStreamableUI(<TweetComponentSkeleton/>);
 
 	const completion = runOpenAICompletion(openai, {
 		model: 'gpt-3.5-turbo',
@@ -36,7 +37,13 @@ async function submitTweet(content: string) {
 		messages: [
 			{
 				role: "system",
-				content: `You are a friendly weather assistant!`,
+				content: `\
+You are a generative twitter bot. You will receive raw tweet data and manipulate the data to fit certain criterias.
+
+If the tweet mentions the weather of a location, call \`get_current_weather\` to show the weather UI.
+				
+				
+				`,
 			},
 			...aiState.get().map((message: any) => ({
 				role: message.role,
@@ -72,12 +79,18 @@ async function submitTweet(content: string) {
 		async ({ location, unit }) => {
 			const { temperature, description } = await getWeather(location, unit);
 
+			reply.update(
+				<TweetComponentSkeleton/>
+			);
+
 			reply.done(
+				<TweetComponent tweet={tweet} DynamicComponent={
 				<Weather
 					temperature={temperature}
 					unit={unit}
 					description={description}
-				/>,
+				/>}>
+				</TweetComponent>
 			);
 
 			aiState.done([
