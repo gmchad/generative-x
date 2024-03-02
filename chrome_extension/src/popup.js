@@ -1,15 +1,21 @@
-document.getElementById('sparkleButton').addEventListener('click', () => {
+const listenerTwitter = () => {
     chrome.tabs.query({active: true, currentWindow: true}, function (tabs) {
-        chrome.scripting.executeScript({
-            target: {tabId: tabs[0].id},
-            function: sparkleAction
-        });
+        chrome.scripting.executeScript({target: {tabId: tabs[0].id}, function: filterTwitterTimeline});
     });
-});
+};
+const listenerNotImplemented = () => {
+    chrome.tabs.query({active: true, currentWindow: true}, function (tabs) {
+        chrome.scripting.executeScript({target: {tabId: tabs[0].id}, function: notImplemented});
+    });
+};
+document.getElementById('xFilterButton').addEventListener('click', listenerTwitter);
+document.getElementById('fbFilterButton').addEventListener('click', listenerNotImplemented);
+document.getElementById('moreFilterButton').addEventListener('click', listenerNotImplemented);
 
-function sparkleAction() {
+function notImplemented() {
+    alert('Not implemented yet');
+}
 
-    console.log('SCRAPE....')
-
-
+function filterTwitterTimeline() {
+    console.log('SCRAPE....');
 }
