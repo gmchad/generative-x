@@ -1,6 +1,10 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {Skeleton} from "@/components/ui/skeleton";
 import {FilterId, getImageFilter} from "@/components/filters";
+
+
+// Initialize a cache outside of the component
+const clientSideImageCache = new Map();
 
 
 export function FilteredImage(props: {
@@ -12,46 +16,70 @@ export function FilteredImage(props: {
 
     // find the style
     const {imageUrl} = props;
-    const styleText: string | null = getImageFilter(props.filterId);
+    const styleText = getImageFilter(props.filterId);
 
     // state
-    const [loading, setLoading] = useState(false);
-    const [filteredImageUrl, setFilteredImageUrl] = useState<string | null>(null);
+    const [loading, setLoading] = React.useState(false);
+    const [filteredImageUrl, setFilteredImageUrl] = React.useState<string | null>(null);
 
 
-    useEffect(() => {
-        if (!imageUrl || !styleText)
+    React.useEffect(() => {
+        if (!imageUrl || !styleText) {
+            setLoading(false);
             return;
+        }
 
-        // Set loading to true to show the skeleton
-        setLoading(true);
+        // retrieve from cache, if available
+        const cacheKey = `${imageUrl}_${styleText}`;
+        const cachedUrl = clientSideImageCache.get(cacheKey);
+        if (cachedUrl) {
+            // If the image is found in the cache, use it and skip fetching
+            setFilteredImageUrl(cachedUrl);
+            return;
+        }
 
-        // Construct the endpoint URL with provided imageUrl and filterId
-        const endpoint = `https://spc-openai-hackathon-backend.onrender.com/filter_image?image_url=${encodeURIComponent(imageUrl)}&new_filter=${encodeURIComponent(styleText)}`;
+        const _ac = new AbortController();
 
-        // Call the endpoint to get the filtered image
-        const abortController = new AbortController();
-        fetch(endpoint, {signal: abortController.signal})
-            .then((response) => response.json())
-            .then((data) => {
-                // Assuming the API returns a JSON object with a property 'filteredImageUrl' that contains the URL of the filtered image
-                console.log('out', data);
-                if (data.url) {
-                    setFilteredImageUrl(data.url);
-                } else {
-                    // Handle case where the API response does not contain the expected property
-                    console.error('API response does not contain filteredImageUrl.');
+        async function getFilteredImage(srcUrl: string, dstStyle: string, ac: AbortController) {
+            // Set loading to true to show the skeleton
+            setLoading(true);
+
+            // Construct the endpoint URL with provided imageUrl and filterId
+            const endpoint = `https://spc-openai-hackathon-backend.onrender.com/filter_image?image_url=${encodeURIComponent(srcUrl)}&new_filter=${encodeURIComponent(dstStyle)}`;
+
+            // Call the endpoint to get the filtered image
+            try {
+
+                const response = await fetch(endpoint);
+                const data = await response.json();
+
+                if (!data.url || !data.url?.startsWith('http')) {
+                    console.error('API response does not contain filteredImageUrl.', data);
+                    return;
                 }
-            })
-            .catch((error) => {
-                console.error('Error fetching filtered image:', error);
-            })
-            .finally(() => {
-                setLoading(false); // Set loading to false to hide the skeleton
-            });
 
-        // Cleanup the fetch request if the component unmounts
-        return () => abortController.abort();
+                // Save the fetched URL to the cache
+                clientSideImageCache.set(cacheKey, data.url);
+
+                // replace the image in the UI only if the client hasn't moved on since
+                if (!ac.signal.aborted)
+                    setFilteredImageUrl(data.url);
+            } catch (error) {
+                console.error('Error fetching filtered image:', error);
+            }
+
+            // disable the loading indicator
+            if (!ac.signal.aborted)
+                setLoading(false);
+        }
+
+        const timeoutId = setTimeout(() => getFilteredImage(imageUrl, styleText, _ac), 0);
+        return () => {
+            _ac.abort();
+            setLoading(false);
+            clearTimeout(timeoutId);
+        };
+
     }, [imageUrl, styleText]);
 
     // No style: pic as-is
