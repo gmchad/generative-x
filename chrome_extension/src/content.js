@@ -95,8 +95,8 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     let eTimeline = document.querySelector('[aria-label="Timeline: Your Home Timeline"]');
     if (!eTimeline) {
         // retry with a per-person timeline
-        eTimeline = document.querySelector('[aria-labelledby="accessible-list-0"] > div:nth-child(2)');
-        console.log('Timeline not found, trying the per-person timeline', eTimeline[0]);
+        eTimeline = document.querySelector('section[aria-labelledby^="accessible-list"] > div:nth-child(2)');
+        console.log('Timeline not found, trying the per-person timeline');
     }
     if (!eTimeline)
         return console.log('Timeline not found');
