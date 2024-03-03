@@ -12,9 +12,11 @@ import DynamicSkeleton from "./dynamicskeleton";
 
 export default function TweetComponent({ tweet, filterId, isDynamic }: { tweet: Tweet, filterId: FilterId | null, isDynamic: boolean }) {
 
-		const {isClassified, tweetComponent, replacedTweetText} = useClassifiedTweet(tweet, isDynamic);
+		const reallyDynamic = isDynamic && tweet.content?.length > 5;
 
-		const DynamicComponent = isClassified ? tweetComponent : isDynamic ? <DynamicSkeleton/> : null;
+		const {isClassified, tweetComponent, replacedTweetText} = useClassifiedTweet(tweet, reallyDynamic);
+
+		const DynamicComponent = isClassified ? tweetComponent : reallyDynamic ? <DynamicSkeleton/> : null;
 
 		return (
 				<div className="flex border-b border-gray-700 p-4 bg-black">
