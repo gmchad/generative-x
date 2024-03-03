@@ -143,6 +143,10 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
         if (divChildren.length === 5) {
             divChildren[0].style.display = 'none'; // Hides the 1st child
             divChildren[2].style.display = 'none'; // Hides the 3rd child
+        } else if (divChildren.length === 3) {
+            // person timeline
+            if (divChildren[2]?.children?.[0]?.children?.[0]?.children?.[0])
+                divChildren[2].children[0].children[0].children[0].style.display = 'none';
         } else
             console.log(`eHome does not have exactly 5 div children, it has ${divChildren.length}.`);
     } else
