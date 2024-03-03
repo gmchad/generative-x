@@ -5,11 +5,12 @@ import OpenAI from 'openai';
 import {runOpenAICompletion} from '@/lib/utils';
 import {getStockData, getPoliticalLeaning} from '@/lib/test-data';
 
-import { getWeatherApi, getPoliticalApi, getStockApi } from "@/lib/data";
+import { getWeatherApi, getPoliticalApi, getStockApi, getClothingApi } from "@/lib/data";
 
 import {Weather} from '@/components/weather';
 import {Stocks} from '@/components/stocks';
 import {Politics} from '@/components/politics';
+import { Clothing } from "./clothing";
 
 import type {Tweet} from '@/types/tweets';
 
@@ -29,6 +30,20 @@ function classifyTweetByContent(
 
     const tweetContent = tweet.content;
 
+    // Hardcode Clothing UI for now
+    // TODO: @Dhruv
+    if (tweet.user.username === '@TechBroDrip') {
+        getClothingApi(tweet.content)
+        .then((clothingData) => {
+            onUpdateDynamic(<Clothing props={clothingData} />, true)
+        })
+        .catch((err) => {
+            onReplyToText(tweetContent);
+            console.error(err);
+        })
+        return;
+    }
+
     const completion = runOpenAICompletion(openai, {
         model: 'gpt-3.5-turbo',
         stream: true,
@@ -41,6 +56,7 @@ You are a generative twitter bot. You will receive raw tweet data and manipulate
 If the tweet mentions the weather of a location, call \`get_current_weather\` to show the weather UI.
 If the tweet mentions the stocks and/or has a ticket symbol like $AAPL, call \`get_stock_price\` to show the stock price UI.				
 If the tweet is extremely political, call the \`get_political_stance\` to show a political stance UI.
+
 				`,
             },
             {
@@ -102,7 +118,12 @@ If the tweet is extremely political, call the \`get_political_stance\` to show a
         "get_stock_price",
         async ({ticker} : {ticker: string}) => {
             const stockData = await getStockApi(ticker);
-            onUpdateDynamic(<Stocks props={stockData} />, true);
+            const isStockDataBroken= !stockData || !stockData.current_price || !stockData.ticker;
+            if (isStockDataBroken) {
+                console.error("Stock data is broken", ticker, stockData);
+                onReplyToText(tweetContent);
+            } else
+                onUpdateDynamic(<Stocks props={stockData} />, true);
         },
     );
 
