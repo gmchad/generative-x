@@ -8,6 +8,7 @@ const clientSideImageCache = new Map();
 
 export function FilteredImage(props: {
     imageUrl: string;
+    imageText?: string;
     filterId: FilterId | null;
     altText: string;
     className: string
@@ -45,7 +46,7 @@ export function FilteredImage(props: {
             setFilteredImageUrl(null);
 
             // Construct the endpoint URL with provided imageUrl and filterId
-            const endpoint = `https://spc-openai-hackathon-backend.onrender.com/filter_image?image_url=${encodeURIComponent(srcUrl)}&new_filter=${encodeURIComponent(dstStyle)}`;
+            const endpoint = `https://spc-openai-hackathon-backend.onrender.com/filter_image?image_url=${encodeURIComponent(srcUrl)}&new_filter=${encodeURIComponent(dstStyle)}&text=${props.imageText || ''}`;
 
             // Call the endpoint to get the filtered image
             try {
