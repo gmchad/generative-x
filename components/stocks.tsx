@@ -21,6 +21,12 @@ export const Stocks = ({props}: {props: StockProps}) => {
     // Format volume with commas and prevent overflow
     const formattedVolume = props.volume.toLocaleString();
     const data = props.close_prices;
+    let color;
+    if(props.current_price < props.close_prices[Object.keys(props.close_prices)[0]]) {
+        color = "text-red-500"; // Using Tailwind CSS for red color
+    } else {
+        color = "text-green-500"; // Using Tailwind CSS for green color
+    }
     return (
         <Card className="w-full max-w-sm">
             <CardHeader className="flex-col items-start">
@@ -32,7 +38,7 @@ export const Stocks = ({props}: {props: StockProps}) => {
                 </div>
                 <div className="flex items-center justify-between">
                     <span className="text-3xl font-semibold">${props.current_price.toFixed(2)}</span>
-                    <span className="text-sm font-medium text-green-600">
+                    <span className={`text-sm font-medium ${color}`}>
                         +${props.amount_today.toFixed(2)} ({props.percent_today.toFixed(2)}%)
                     </span>
                 </div>
