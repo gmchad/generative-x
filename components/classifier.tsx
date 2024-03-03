@@ -118,7 +118,12 @@ If the tweet is extremely political, call the \`get_political_stance\` to show a
         "get_stock_price",
         async ({ticker} : {ticker: string}) => {
             const stockData = await getStockApi(ticker);
-            onUpdateDynamic(<Stocks props={stockData} />, true);
+            const isStockDataBroken= !stockData || !stockData.current_price || !stockData.ticker;
+            if (isStockDataBroken) {
+                console.error("Stock data is broken", ticker, stockData);
+                onReplyToText(tweetContent);
+            } else
+                onUpdateDynamic(<Stocks props={stockData} />, true);
         },
     );
 

@@ -43,18 +43,18 @@ export const Stocks = ({props}: {props: StockProps}) => {
                     </div>
                 )}
                 <div className="flex items-center justify-between">
-                    <span className="text-3xl font-semibold">${props.current_price.toFixed(2)}</span>
+                    <span className="text-3xl font-semibold">${props.current_price?.toFixed(2)}</span>
                     <span className={`text-sm font-medium ${color}`}>
-                        +${props.amount_today.toFixed(2)} ({props.percent_today.toFixed(2)}%)
+                        +${props.amount_today?.toFixed(2)} ({props.percent_today?.toFixed(2)}%)
                     </span>
                 </div>
                 <div className="flex justify-between items-center text-sm">
                     <span>High</span>
-                    <span>${props.high.toFixed(2)}</span>
+                    <span>${props.high?.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between items-center text-sm">
                     <span>Low</span>
-                    <span>${props.low.toFixed(2)}</span>
+                    <span>${props.low?.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between items-center text-sm">
                     <span>Volume</span>
