@@ -1,7 +1,7 @@
 export type FilterId = 'anime' | 'cyberpunk' | 'cheese' | 'candy' | 'disgusting';
 
 // Reimagine the following prompt if it were filtered like ${filter}: ${prompt}
-export const Filters: { [id in FilterId]: { name: string; imageFilter: string; responseAdjectives: string } } = {
+export const Filters: { [id in FilterId]: { name: string; imageFilter: string; responseAdjectives: string, voiceId?: string } } = {
     'anime': {
         name: '🌸 Anime', // 🌸🍙😸
         // imageFilter: 'Anime, like Demon Slayer',
@@ -14,6 +14,7 @@ export const Filters: { [id in FilterId]: { name: string; imageFilter: string; r
         // imageFilter: 'Cyberpunk, like Blade Runner',
         imageFilter: 'cyberpunk style with neon-drenched aesthetic, mirroring Blade Runner\' dystopian future',
         responseAdjectives: 'gen-z, braindead',
+        voiceId: 'Pqfiihpuz4Fl2QsVF9rg', // Elon Musk
     },
     'candy': { // Perfect
         name: '🦄',
@@ -45,4 +46,8 @@ export function getImageFilter(filterId: FilterId | null): string | null {
 
 export function getResponseAdjectives(filterId: FilterId | null): string | null {
     return filterId ? Filters[filterId].responseAdjectives ?? null : null;
+}
+
+export function getFilterVoiceId(filterId: FilterId | null): string | null {
+    return filterId ? Filters[filterId].voiceId ?? null : null;
 }

@@ -6,9 +6,10 @@ import { formatDate } from "@/lib/utils";
 import {useClassifiedTweet} from "@/components/classifier";
 import TweetComponentSkeleton from "@/components/tweetskeleton";
 import {FilteredImage} from "@/components/filteredimage";
-import {FilterId} from "@/components/filters";
+import {FilterId, getFilterVoiceId} from "@/components/filters";
 import DynamicSkeleton from "./dynamicskeleton";
 import {Replies} from "@/components/replies";
+import {EXPERIMENTAL_speakTextStream} from "@/components/elevenlabs.client";
 
 
 // set to false to always show the original picture
@@ -22,6 +23,8 @@ export default function TweetComponent({ tweet, filterId, isDynamic }: { tweet: 
 		const {isClassified, isReply, tweetComponent, replacedTweetText} = useClassifiedTweet(tweet, reallyDynamic);
 
 		const DynamicComponent = isClassified ? tweetComponent : reallyDynamic ? <DynamicSkeleton/> : null;
+
+		const voiceId = getFilterVoiceId(filterId);
 
 		return (
 				<div className="flex border-b border-gray-700 p-4 bg-black">
@@ -76,7 +79,7 @@ export default function TweetComponent({ tweet, filterId, isDynamic }: { tweet: 
 								)}
 								{/* Displaying some engagement metrics */}
 								<div className="mt-2 text-sm text-gray-400">
-										<span>Likes: {tweet.engagement.likes}</span> ·
+										<span onClick={() => EXPERIMENTAL_speakTextStream(replacedTweetText,voiceId || undefined)}>Likes: {tweet.engagement.likes}</span> ·
 										<span> Replies: {tweet.engagement.replies}</span> ·
 										<span> Reposts: {tweet.engagement.reposts}</span>
 								</div>
