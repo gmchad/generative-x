@@ -43,6 +43,7 @@ export function FilteredImage(props: {
         async function getFilteredImage(srcUrl: string, dstStyle: string, ac: AbortController) {
             // Set loading to true to show the skeleton
             setLoading(true);
+            setFilteredImageUrl(null);
 
             // Construct the endpoint URL with provided imageUrl and filterId
             const endpoint = `https://spc-openai-hackathon-backend.onrender.com/filter_image?image_url=${encodeURIComponent(srcUrl)}&new_filter=${encodeURIComponent(dstStyle)}`;
@@ -109,8 +110,10 @@ export function FilteredImage(props: {
     if (filteredImageUrl)
         return <picture><img src={filteredImageUrl} alt={props.altText} className={props.className}/></picture>;
 
-    // Skeleton
     return <div className="mt-2">
-        {loading ? <Skeleton className="h-48 w-full rounded-lg"/> : `Issue filtering image ${styleText}`}
+        {loading ? (
+            // <Skeleton className="h-48 w-full rounded-lg"/>
+            <picture><img src={imageUrl} alt={props.altText} className={props.className + ' blur-lg grayscale'}/></picture>
+        ): `Issue filtering image ${styleText}`}
     </div>;
 }
