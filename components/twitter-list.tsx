@@ -45,7 +45,7 @@ export default function TwitterList() {
 
 		return (
 				<div className="w-full rounded sm:rounded-lg">
-					<div className="flex justify-between mt-2 ml-2 sticky top-0 backdrop-blur-sm">
+					<div className="flex justify-between mt-2 ml-2 sticky top-0 backdrop-blur-sm z-50">
 						<Tabs defaultValue="null" className="">
 						<TabsList>
 							{FiltersList.map((filter, index) => (
