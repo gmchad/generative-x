@@ -5,3 +5,15 @@ export async function getWeatherApi(location: string) {
 	const response = await fetch(endpoint);
 	return response.json();
 }
+
+export async function getStockApi(ticker: string) {
+	const endpoint = `${RENDER_ENDPOINT}/text_to_finance_data?ticker=${encodeURIComponent(ticker)}`;
+	const response = await fetch(endpoint);
+	return response.json();
+}
+
+export async function getPoliticalApi(content: string) {
+	const endpoint = `${RENDER_ENDPOINT}/text_to_politics?text=${encodeURIComponent(content)}`;
+	const response = await fetch(endpoint);
+	return response.json();
+}

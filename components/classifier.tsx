@@ -5,7 +5,7 @@ import OpenAI from 'openai';
 import {runOpenAICompletion} from '@/lib/utils';
 import {getStockData, getPoliticalLeaning} from '@/lib/test-data';
 
-import { getWeatherApi } from "@/lib/data";
+import { getWeatherApi, getPoliticalApi, getStockApi } from "@/lib/data";
 
 import {Weather} from '@/components/weather';
 import {Stocks} from '@/components/stocks';
@@ -40,7 +40,7 @@ You are a generative twitter bot. You will receive raw tweet data and manipulate
 
 If the tweet mentions the weather of a location, call \`get_current_weather\` to show the weather UI.
 If the tweet mentions the stocks and/or has a ticket symbol like $AAPL, call \`get_stock_price\` to show the stock price UI.				
-If the tweet mentions politics, call the \`get_political_stance\` to show a political stance UI.
+If the tweet mentions anything political, call the \`get_political_stance\` to show a political stance UI.
 				`,
             },
             {
@@ -93,7 +93,7 @@ If the tweet mentions politics, call the \`get_political_stance\` to show a poli
     completion.onFunctionCall(
         "get_political_stance",
         async ({summary} : {summary: string}) => {
-            const polticalData = await getPoliticalLeaning(summary)
+            const polticalData = await getPoliticalApi(tweet.content)
             onUpdateDynamic(<Politics props={polticalData} />, true);
         },
     );
