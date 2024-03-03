@@ -1,4 +1,5 @@
 import { CardTitle, CardHeader, CardContent, Card } from "@/components/ui/card";
+import { CarouselItem, CarouselContent, CarouselPrevious, CarouselNext, Carousel } from "@/components/ui/carousel"
 
 // type ClothingProps = {
 //     img_src: string;
@@ -22,7 +23,7 @@ const TwitterCard: React.FC<TwitterCardProps> = ({
 }) => {
   const handleClick = () => {
     // You can customize the behavior when the image is clicked, such as navigating to the item link
-    window.location.href = item_link;
+    window.open(item_link, '_blank');
   };
 
   return (
@@ -30,13 +31,13 @@ const TwitterCard: React.FC<TwitterCardProps> = ({
       <img
         src={img_src}
         alt={item_type}
-        style={{ width: '100%', height: 'auto', cursor: 'pointer' }}
+        style={{ width: '300%', height: '300%', cursor: 'pointer' }}
         onClick={handleClick}
       />
-      <div>
+      {/* <div>
         <p>{description}</p>
         <p>Type: {item_type}</p>
-      </div>
+      </div> */}
     </div>
   );
 };
@@ -66,15 +67,27 @@ export const Clothing = ({props}: {props : ClothingProps}) => {
                     </div>
 
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: '20px' }}>
-                        {Object.entries(props).map(([category, items]) => (
-                            <div key={category}>
-                            <h2>{category}</h2>
-                            {
-                                items.map((item, index) => (
-                                <TwitterCard key={index} {...item} />
-                            ))}
-                            </div>
-                        ))}
+                        <Carousel className="w-full max-w-xs">
+                            <CarouselContent className="overflow-visible">
+                                {Object.entries(props)
+                                .filter(([category, items]) => items.length > 0).map(([category, items]) => (
+                                    <div className="grid gap-4 px-1.5">
+                                        <div className="flex items-center">
+                                        <div className="text-lg text-black shadcn-accent-pill rounded-full"></div>
+                                    <div key={category}>
+                                    <h2>{category}</h2>
+                                        {
+                                            items.map((item, index) => (
+                                            <TwitterCard key={index} {...item} />
+                                        ))}
+                                        </div>
+                                        </div>
+                                    </div>
+                                ))}
+                            </CarouselContent>
+                            <CarouselPrevious className="max-w-sm"/>
+                            <CarouselNext className="max-w-sm"/>
+                        </Carousel>
                     </div>
 
 
