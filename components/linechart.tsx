@@ -29,6 +29,11 @@ function scale(data: LineChartData, width: number, height: number) {
 const LineChart: React.FC<LineChartProps> = ({ data, width = 600, height = 300 }) => {
     const { xScale, yScale } = scale(data, width, height);
     const dates = Object.keys(data);
+    const firstValue = data[dates[0]];
+    const lastValue = data[dates[dates.length - 1]];
+
+    // Determine line color based on comparison of first and last data points
+    const lineColor = lastValue > firstValue ? 'green' : 'red';
 
     // Create the 'd' attribute for the <path> element
     let pathD = `M ${xScale(dates[0])} ${yScale(data[dates[0]])}`;
@@ -38,8 +43,7 @@ const LineChart: React.FC<LineChartProps> = ({ data, width = 600, height = 300 }
 
     return (
         <svg width={width} height={height}>
-            <path d={pathD} stroke="blue" strokeWidth="2" fill="none" />
-            {/* You can add more SVG elements here to customize your chart (e.g., grid lines, labels) */}
+            <path d={pathD} stroke={lineColor} strokeWidth="2" fill="none" />
         </svg>
     );
 };

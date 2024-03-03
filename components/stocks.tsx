@@ -20,14 +20,15 @@ type StockProps = {
 export const Stocks = ({props}: {props: StockProps}) => {
     // Format volume with commas and prevent overflow
     const formattedVolume = props.volume.toLocaleString();
+    const data = props.close_prices;
     return (
         <Card className="w-full max-w-sm">
             <CardHeader className="flex-col items-start">
                 <CardTitle className="text-2xl">{props.ticker}</CardTitle>
             </CardHeader>
             <CardContent className="grid gap-1.5">
-                <div>
-                    {/* <LineChart data={data} width={200} height={200} /> */}
+                <div className="flex items-center justify-between">
+                    <LineChart data={data} width={300} height={200} />
                 </div>
                 <div className="flex items-center justify-between">
                     <span className="text-3xl font-semibold">${props.current_price.toFixed(2)}</span>
