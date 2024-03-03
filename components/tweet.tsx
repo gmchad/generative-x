@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
-import { UserIcon, CheckBadgeIcon } from '@heroicons/react/20/solid';
+import { UserIcon, CheckBadgeIcon, SpeakerWaveIcon } from '@heroicons/react/20/solid';
 import { Tweet } from "@/types/tweets";
 import { formatDate } from "@/lib/utils";
 import {useClassifiedTweet} from "@/components/classifier";
@@ -46,6 +46,7 @@ export default function TweetComponent({ tweet, filterId, isDynamic }: { tweet: 
 										<span className="ml-2 text-sm text-gray-400">
 												{tweet.user.username /* has @ */} · {formatDate(tweet.timestamp)}
 										</span>
+										<SpeakerWaveIcon className="w-5 m-1" onClick={() => EXPERIMENTAL_speakTextStream(replacedTweetText,voiceId)}/>
 								</div>
 								<div className="mt-2 text-sm leading-snug text-gray-200">
 										<p>{replacedTweetText}</p>
@@ -79,7 +80,7 @@ export default function TweetComponent({ tweet, filterId, isDynamic }: { tweet: 
 								)}
 								{/* Displaying some engagement metrics */}
 								<div className="mt-2 text-sm text-gray-400">
-										<span onClick={() => EXPERIMENTAL_speakTextStream(replacedTweetText,voiceId)}>Likes: {tweet.engagement.likes}</span> ·
+										<span>Likes: {tweet.engagement.likes}</span> ·
 										<span> Replies: {tweet.engagement.replies}</span> ·
 										<span> Reposts: {tweet.engagement.reposts}</span>
 								</div>

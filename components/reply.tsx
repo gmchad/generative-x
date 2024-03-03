@@ -3,6 +3,7 @@ import { CarouselItem, CarouselContent, CarouselPrevious, CarouselNext, Carousel
 import { CardTitle, CardDescription, CardHeader, CardContent, CardFooter, Card } from "@/components/ui/card";
 import { Button } from "./ui/button";
 import {EXPERIMENTAL_speakTextStream} from "@/components/elevenlabs.client";
+import { SpeakerWaveIcon } from '@heroicons/react/20/solid';
 
 export function Reply({replies, voiceId}: {replies: Record<string, string>, voiceId: string | undefined}) {
   return (
@@ -20,7 +21,7 @@ export function Reply({replies, voiceId}: {replies: Record<string, string>, voic
                   <div className="text-lg text-black shadcn-accent-pill rounded-full">
                     {reply}
                   </div>
-                  <Button onClick={() => EXPERIMENTAL_speakTextStream(reply,voiceId)}/>
+                  <SpeakerWaveIcon className="w-5 m-1 text-black" onClick={() => EXPERIMENTAL_speakTextStream(reply,voiceId)}/>
                 </div>
               </div>
             </CarouselItem>
