@@ -55,7 +55,7 @@ export default function TwitterList() {
 		return (
 				<div className="w-full rounded sm:rounded-lg">
 					<div className="flex justify-between mt-2 ml-2">
-						<Tabs defaultValue="" className="">
+						<Tabs defaultValue="null" className="">
 						<TabsList>
 							{FiltersList.map((filter, index) => (
 								<TabsTrigger key={index} value={filter.id || 'null'} onClick={() => setFilterId(filter.id)}>{filter.name}</TabsTrigger>
