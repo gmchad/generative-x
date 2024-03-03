@@ -1,6 +1,5 @@
 import { CardTitle, CardDescription, CardHeader, CardContent, CardFooter, Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ClassDictionary } from "clsx";
 
 interface StocksProps {
     ticker: string;
