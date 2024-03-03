@@ -33,6 +33,7 @@ function classifyTweetByContent(
     // Hardcode Clothing UI for now
     // TODO: @Dhruv
     if (tweet.user.username === '@TechBroDrip') {
+        tweet.media[0].url ?
         getClothingApi(tweet.content)
         .then((clothingData) => {
             onUpdateDynamic(<Clothing props={clothingData} />, true)
@@ -40,7 +41,7 @@ function classifyTweetByContent(
         .catch((err) => {
             onReplyToText(tweetContent);
             console.error(err);
-        })
+        }) : onReplyToText(tweetContent);
         return;
     }
 

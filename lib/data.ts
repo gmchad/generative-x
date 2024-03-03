@@ -20,5 +20,7 @@ export async function getPoliticalApi(content: string) {
 
 // TODO: @Dhruv
 export async function getClothingApi(content: string) {
- return {}
+	const endpoint = `${RENDER_ENDPOINT}/get_clothing?text=${encodeURIComponent(content)}`;
+	const response = await fetch(endpoint);
+	return response.json();
 }
