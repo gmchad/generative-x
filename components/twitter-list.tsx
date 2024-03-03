@@ -10,22 +10,13 @@ import { trimmedTweetData as hardcodedTweets} from "@/lib/test-data";
 import {FilterId, FiltersList} from "@/components/filters";
 
 
-
 function getQueryTweets(queryParams: ReadonlyURLSearchParams): TweetType[] | null {
-	const queryTweetsEncoded = queryParams.get('tweets') || null;
-	if (queryTweetsEncoded) {
-		let decoded: string | null = null;
+	const queryTweetsString = queryParams.get('tweets') || null;
+	if (queryTweetsString) {
 		try {
-			decoded = decodeURIComponent(queryTweetsEncoded);
+			return JSON.parse(queryTweetsString) as TweetType[];
 		} catch (error) {
-			console.error("Error decoding query tweets", error, queryTweetsEncoded.length, queryTweetsEncoded);
-		}
-		if (decoded) {
-			try {
-				return JSON.parse(decoded) as TweetType[];
-			} catch (error) {
-				console.error("Error parsing query tweets", error, decoded);
-			}
+			console.error("Error parsing query tweets", error, queryTweetsString);
 		}
 	}
 	return null;
