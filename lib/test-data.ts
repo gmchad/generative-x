@@ -84,21 +84,13 @@ export const tweetData: Tweet[] = [
     // Weather in SF
     {
         "id": "1719952696869003550",
-        "link": "/frank_smith1111/status/1719952696869003550",
+        "link": "/Scobleizer/status/1763801233339634089",
         "user": {
-            "username": "@frank_smith1111",
-            "displayName": "Frank Smith",
-            "avatarUrl": "https://pbs.twimg.com/profile_images/1617740523456040961/LCMDvOCY_x96.jpg",
+            "username": "@Scobleizer",
+            "displayName": "Robert Scoble",
+            "avatarUrl": "https://pbs.twimg.com/profile_images/1719781327527133184/oOgZZpVK_x96.jpg",
             "verified": false
         },
-        // "id": "1763801233339634089",
-        // "link": "/Scobleizer/status/1763801233339634089",
-        // "user": {
-        //     "username": "@Scobleizer",
-        //     "displayName": "Robert Scoble",
-        //     "avatarUrl": "https://pbs.twimg.com/profile_images/1719781327527133184/oOgZZpVK_x96.jpg",
-        //     "verified": false
-        // },
         "content": "The streets of San Francisco are glistening under the steady drizzle today. Rainy days like this bring a certain charm to the city, making every coffee shop corner a cozy refuge. ☔🌁 #SanFranciscoRain",
         "engagement": {
             "replies": "12",
@@ -243,11 +235,11 @@ export const tweetData: Tweet[] = [
 
     {
         "id": "1763801233339634110",
-        "link": "/martin_casado/status/1763801233339634110",
+        "link": "/frank_smith1111/status/1719952696869003550",
         "user": {
-            "username": "@martin_casado",
-            "displayName": "martin_casado",
-            "avatarUrl": "https://pbs.twimg.com/profile_images/1556885485888237568/HH1iBQNp_x96.jpg",
+            "username": "@frank_smith1111",
+            "displayName": "Frank Smith",
+            "avatarUrl": "https://pbs.twimg.com/profile_images/1617740523456040961/LCMDvOCY_x96.jpg",
             "verified": false
         },
         "content": "As we look to the future, it's clear that policies focusing on renewable energy and climate change are not just necessary, but urgent. We must support leaders who prioritize our planet and future generations over short-term gains. 🌍 #ClimateAction #RenewableEnergy",
