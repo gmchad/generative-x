@@ -77,7 +77,7 @@ export const Clothing = ({props}: {props : ClothingProps}) => {
                                     <div key={category}>
                                     <h2>{category}</h2>
                                         {
-                                            items.map((item, index) => (
+                                            items.map((item: any , index: number) => (
                                             <TwitterCard key={index} {...item} />
                                         ))}
                                         </div>
