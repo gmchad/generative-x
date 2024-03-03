@@ -3,8 +3,10 @@ import {z} from 'zod';
 import OpenAI from 'openai';
 
 import {runOpenAICompletion} from '@/lib/utils';
-import {getWeather} from '@/lib/test-data';
+import {getWeather, getStockData} from '@/lib/test-data';
+
 import {Weather} from '@/components/weather';
+import {Stocks} from '@/components/stocks';
 
 import type {Tweet} from '@/types/tweets';
 
@@ -33,7 +35,7 @@ function classifyTweetByContent(
 You are a generative twitter bot. You will receive raw tweet data and manipulate the data to fit certain criterias.
 
 If the tweet mentions the weather of a location, call \`get_current_weather\` to show the weather UI.
-				
+If the tweet mentions the stocks and/or has a ticket symbol like $AAPL, call \`get_stock_price\` to show the stock price UI.				
 				
 				`,
             },
@@ -53,6 +55,17 @@ If the tweet mentions the weather of a location, call \`get_current_weather\` to
                     unit: z.string().describe("The unit of the temperature, e.g. C or F"),
                 }),
             },
+            {
+                name: "get_stock_price",
+                description: "Get the current stock price of a given stock or currency based on it's ticker symbol. Use this to show the price to the user.",
+                parameters: z.object({
+                    ticker: z
+                    .string()
+                    .describe(
+                        'The name or symbol of the stock or currency. e.g. DOGE/AAPL/USD.',
+                    ),
+                }),
+            },
         ] as const,
         temperature: 0,
     });
@@ -61,6 +74,15 @@ If the tweet mentions the weather of a location, call \`get_current_weather\` to
     completion.onTextContent((content: string, isFinal: boolean) => {
         onUpdateDynamic(content, isFinal);
     });
+
+    completion.onFunctionCall(
+        "get_stock_price",
+        async ({ticker} : {ticker: string}) => {
+            console.log(ticker)
+            const stockData = await getStockData(ticker);
+            onUpdateDynamic(<Stocks {...stockData} />, true);
+        },
+    );
 
     completion.onFunctionCall(
         "get_current_weather",

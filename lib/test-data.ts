@@ -23,6 +23,36 @@ export async function getWeather(location: string, unit: string) {
 	};
 }
 
+interface StocksProps {
+		ticker: string;
+		amount_today: number;
+		percent_today: number;
+		current_price: number;
+		high: number;
+		low: number;
+		volume: number;
+		close_prices: number;
+}
+
+// Mock function to simulate fetching stock data
+export const getStockData = (ticker: string): Promise<StocksProps> => {
+		// Simulating a delay to mimic asynchronous API call
+		return new Promise(resolve => {
+				setTimeout(() => {
+						resolve({
+								ticker,
+								amount_today: Math.random() * 10, // Random change in price for today
+								percent_today: Math.random() * 5, // Random percent change for today
+								current_price: 100 + Math.random() * 50, // Random current price
+								high: 150 + Math.random() * 10, // Random high price
+								low: 90 + Math.random() * 10, // Random low price
+								volume: 1000000 + Math.floor(Math.random() * 1000000), // Random volume
+								close_prices: 100 + Math.random() * 50
+						});
+				}, 500); // Simulate a 500ms delay
+		});
+};
+
 export const tweetData: Tweet[] = [
 	{
 		"id": "1763801233339634089",
@@ -41,6 +71,24 @@ export const tweetData: Tweet[] = [
 			"views": "10K"
 		},
 		"timestamp": "2024-03-02T10:15:30.000Z"
+	},
+	{
+		"id": "1763801233339634099",
+		"link": "/Scobleizer/status/1763801233339634099",
+		"user": {
+			"username": "@Scobleizer",
+			"displayName": "Robert Scoble",
+			"avatarUrl": "https://pbs.twimg.com/profile_images/1719781327527133184/oOgZZpVK_x96.jpg",
+			"verified": false
+		},
+		"content": "Watching $TSLA stock closely today as the market reacts to the latest electric vehicle innovations announced. The future of transportation is electric, and it's thrilling to see how Tesla leads the charge. 🔌🚗 #Tesla #StockMarket",
+		"engagement": {
+			"replies": "25",
+			"reposts": "15",
+			"likes": "130",
+			"views": "15K"
+		},
+		"timestamp": "2024-03-02T12:30:45.000Z"
 	},
 	{
 		"id": "1763656445545849004",
@@ -344,4 +392,4 @@ export const tweetData: Tweet[] = [
 	}
 ]
 
-export const trimmedTweetData = tweetData.slice(0, 2);
+export const trimmedTweetData = tweetData.slice(0, 3);

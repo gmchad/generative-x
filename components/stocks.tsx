@@ -9,7 +9,7 @@ interface StocksProps {
     high: number;
     low: number;
     volume: number;
-    close_prices: string;
+    close_prices: number;
 }
 
 export const Stocks = ({
