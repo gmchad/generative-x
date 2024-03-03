@@ -8,6 +8,7 @@ export const Filters: { [id in FilterId]: { name: string; imageFilter: string; r
         imageFilter: 'anime with immersive visuals and emotional richness, preserving the subject',
         // imageFilter: 'shojo anime style, in soft colors, flowery details, and use of color to evoke emotion',
         responseAdjectives: 'kawaii, cute',
+        voiceId: 'MF3mGyEYCl7XYWbV9V6O',
     },
     'cyberpunk': {
         name: '🌆 Cyberpunk',
@@ -20,16 +21,19 @@ export const Filters: { [id in FilterId]: { name: string; imageFilter: string; r
         name: '🦄',
         imageFilter: 'unicorns in a dreamy world made of pink cotton candy, preserving the subjects',
         responseAdjectives: 'enchanting, whimsical, fluffy',
+        voiceId: 'jBpfuIE2acCO8z3wKNLl',
     },
     'cheese': {
         name: '🧀',
         imageFilter: 'cheese fantasy with subjects preserved, set against richly textured, colorful cheese-themed backdrops',
         responseAdjectives: 'cheesy, cheesy, as if spoken by a cheese lover',
+        voiceId: 'ZQe5CZNOzWyzPSCn5a3c',
     },
     'disgusting': { // Perfect
         name: '🤮',
         imageFilter: 'disgusting, gruesome, repulsive, icky',
         responseAdjectives: 'disgusting, gross, repulsive',
+        voiceId: 'N2lVS1w4EtoT3dr4eOWO',
     },
 }
 
