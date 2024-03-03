@@ -69,12 +69,12 @@ export const Clothing = ({props}: {props : ClothingProps}) => {
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: '20px' }}>
                         <Carousel className="w-full max-w-xs">
                             <CarouselContent className="overflow-visible">
-                                {Object.entries(props)
-                                .filter(([category, items]) => items.length > 0).map(([category, items]) => (
+                                {Object.entries(props,)
+                                .filter(([category, items]) => items.length > 0).map(([category, items], index) => (
+																	<div key={index}>
                                     <div className="grid gap-4 px-1.5">
                                         <div className="flex items-center">
                                         <div className="text-lg text-black shadcn-accent-pill rounded-full"></div>
-                                    <div key={category}>
                                     <h2 style={{ textAlign: 'center' }}>{category}</h2>
                                         {
                                             items.map((item: any , index: number) => (
