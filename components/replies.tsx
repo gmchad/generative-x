@@ -12,6 +12,7 @@ export function Replies(props: {
     tweetContent: string,
     tweetId: string,
     filterId: FilterId | null,
+    voiceId: string | undefined,
     className: string
 }) {
 
@@ -37,7 +38,7 @@ export function Replies(props: {
     if (replies) {
         return (
         <div className="mt-4">
-            <Reply replies={replies} />
+            <Reply replies={replies} voiceId={props.voiceId} />
         </div>
         )
     }

@@ -2,8 +2,9 @@ import { AvatarImage, AvatarFallback, Avatar } from "@/components/ui/avatar"
 import { CarouselItem, CarouselContent, CarouselPrevious, CarouselNext, Carousel } from "@/components/ui/carousel"
 import { CardTitle, CardDescription, CardHeader, CardContent, CardFooter, Card } from "@/components/ui/card";
 import { Button } from "./ui/button";
+import {EXPERIMENTAL_speakTextStream} from "@/components/elevenlabs.client";
 
-export function Reply({replies}: {replies: Record<string, string>}) {
+export function Reply({replies, voiceId}: {replies: Record<string, string>, voiceId: string | undefined}) {
   return (
     <Card className="w-full max-w-sm bg-white">
     <CardHeader className="flex-col items-start">
@@ -19,7 +20,7 @@ export function Reply({replies}: {replies: Record<string, string>}) {
                   <div className="text-lg text-black shadcn-accent-pill rounded-full">
                     {reply}
                   </div>
-                  <Button/>
+                  <Button onClick={() => EXPERIMENTAL_speakTextStream(reply,voiceId)}/>
                 </div>
               </div>
             </CarouselItem>
