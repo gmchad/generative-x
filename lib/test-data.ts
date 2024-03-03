@@ -23,6 +23,33 @@ export async function getWeather(location: string, unit: string) {
 	};
 }
 
+type PoliticalStance = 'right' | 'left' | 'center';
+
+interface PoliticalLeaningData {
+		stance: PoliticalStance;
+		references: string[];
+}
+
+export const getPoliticalLeaning = async (summary: string): Promise<PoliticalLeaningData> => {
+	const stances: PoliticalStance[] = ['right', 'left', 'center'];
+	const randomStance = stances[Math.floor(Math.random() * stances.length)]; // Randomly selects a stance
+
+	const references = [
+			`https://example.com/source${Math.floor(Math.random() * 10) + 1}`,
+			`https://anotherexample.com/source${Math.floor(Math.random() * 10) + 1}`,
+	]; // Generates two random references
+
+	// Simulating a delay to mimic asynchronous API call
+	return new Promise(resolve => {
+			setTimeout(() => {
+					resolve({
+						stance: randomStance,
+						references: references,
+					});
+			}, 500); // Simulate a 500ms delay
+	});
+};
+
 interface StocksProps {
 		ticker: string;
 		amount_today: number;
@@ -54,6 +81,24 @@ export const getStockData = (ticker: string): Promise<StocksProps> => {
 };
 
 export const tweetData: Tweet[] = [
+	{
+		"id": "1763801233339634110",
+		"link": "/martin_casado/status/1763801233339634110",
+		"user": {
+			"username": "@martin_casado",
+			"displayName": "martin_casado",
+			"avatarUrl": "https://pbs.twimg.com/profile_images/1556885485888237568/HH1iBQNp_x96.jpg",
+			"verified": false
+		},
+		"content": "As we look to the future, it's clear that policies focusing on renewable energy and climate change are not just necessary, but urgent. We must support leaders who prioritize our planet and future generations over short-term gains. 🌍 #ClimateAction #RenewableEnergy",
+		"engagement": {
+			"replies": "45",
+			"reposts": "30",
+			"likes": "250",
+			"views": "20K"
+		},
+		"timestamp": "2024-03-02T15:47:22.000Z"
+	},
 	{
 		"id": "1763801233339634089",
 		"link": "/Scobleizer/status/1763801233339634089",

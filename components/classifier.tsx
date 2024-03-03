@@ -3,10 +3,11 @@ import {z} from 'zod';
 import OpenAI from 'openai';
 
 import {runOpenAICompletion} from '@/lib/utils';
-import {getWeather, getStockData} from '@/lib/test-data';
+import {getWeather, getStockData, getPoliticalLeaning} from '@/lib/test-data';
 
 import {Weather} from '@/components/weather';
 import {Stocks} from '@/components/stocks';
+import {Politics} from '@/components/politics';
 
 import type {Tweet} from '@/types/tweets';
 
@@ -36,7 +37,7 @@ You are a generative twitter bot. You will receive raw tweet data and manipulate
 
 If the tweet mentions the weather of a location, call \`get_current_weather\` to show the weather UI.
 If the tweet mentions the stocks and/or has a ticket symbol like $AAPL, call \`get_stock_price\` to show the stock price UI.				
-				
+If the tweet mentions politics, call the \`get_political_stance\` to show a political stance UI.	
 				`,
             },
             {
@@ -66,21 +67,39 @@ If the tweet mentions the stocks and/or has a ticket symbol like $AAPL, call \`g
                     ),
                 }),
             },
+            {
+                name: "get_political_stance",
+                description: "Summarize the tweet and any political references. Use this to show a political UI to the user.",
+                parameters: z.object({
+                    summary: z
+                    .string()
+                    .describe(
+                        'The political summary of the tweet',
+                    ),
+                }),
+            },
         ] as const,
         temperature: 0,
     });
 
-    // TODO: modify so we can get original message if no filters are used
     completion.onTextContent((content: string, isFinal: boolean) => {
         onUpdateDynamic(content, isFinal);
     });
 
     completion.onFunctionCall(
+        "get_political_stance",
+        async ({summary} : {summary: string}) => {
+            const polticalData = await getPoliticalLeaning(summary)
+            onUpdateDynamic(<Politics props={polticalData} />, true);
+        },
+    );
+
+    completion.onFunctionCall(
         "get_stock_price",
         async ({ticker} : {ticker: string}) => {
-            console.log(ticker)
+
             const stockData = await getStockData(ticker);
-            onUpdateDynamic(<Stocks {...stockData} />, true);
+            onUpdateDynamic(<Stocks props={stockData} />, true);
         },
     );
 

@@ -12,38 +12,29 @@ interface StocksProps {
     close_prices: number;
 }
 
-export const Stocks = ({
-    ticker,
-    amount_today,
-    percent_today,
-    current_price,
-    high,
-    low,
-    volume,
-    close_prices,
-}: StocksProps) => {
+export const Stocks = ({props}: {props: StocksProps}) => {
     // Format volume with commas and prevent overflow
-    const formattedVolume = volume.toLocaleString();
+    const formattedVolume = props.volume.toLocaleString();
 
     return (
         <Card className="w-full max-w-sm">
             <CardHeader className="flex-col items-start">
-                <CardTitle className="text-2xl">{ticker}</CardTitle>
+                <CardTitle className="text-2xl">{props.ticker}</CardTitle>
             </CardHeader>
             <CardContent className="grid gap-1.5">
                 <div className="flex items-center justify-between">
-                    <span className="text-3xl font-semibold">${current_price.toFixed(2)}</span>
+                    <span className="text-3xl font-semibold">${props.current_price.toFixed(2)}</span>
                     <span className="text-sm font-medium text-green-600">
-                        +${amount_today.toFixed(2)} ({percent_today.toFixed(2)}%)
+                        +${props.amount_today.toFixed(2)} ({props.percent_today.toFixed(2)}%)
                     </span>
                 </div>
                 <div className="flex justify-between items-center text-sm">
                     <span>High</span>
-                    <span>${high.toFixed(2)}</span>
+                    <span>${props.high.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between items-center text-sm">
                     <span>Low</span>
-                    <span>${low.toFixed(2)}</span>
+                    <span>${props.low.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between items-center text-sm">
                     <span>Volume</span>

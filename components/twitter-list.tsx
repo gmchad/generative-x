@@ -6,7 +6,7 @@ import TweetComponent from "@/components/tweet";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Switch } from "./ui/switch"
 import { Tweet as TweetType, TwitterUser, TweetMedia, TweetEngagement } from "@/types/tweets";
-import { trimmedTweetData as hardcodedTweets} from "@/lib/test-data";
+import { tweetData as hardcodedTweets} from "@/lib/test-data";
 import {FilterId, FiltersList} from "@/components/filters";
 
 
