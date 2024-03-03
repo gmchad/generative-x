@@ -21,14 +21,14 @@ export const Politics = ({props}: {props : PoliticalProps}) => {
 	return (
 			<Card className="w-full max-w-sm">
 					<CardHeader className="flex-col items-start">
-							<CardTitle className="text-2xl">Political Leaning</CardTitle>
+							<CardTitle className="text-xl">Political Leaning</CardTitle>
 					</CardHeader>
 					<CardContent className="grid gap-1.5">
 							<div className={`flex items-center justify-start`}>
 								<span className="text-sm">Political Party: </span>
 								<span className={`text-xl font-semibold ${colorClass} ml-1`}>{props.party}</span>
 							</div>
-							<div className="flex flex-col text-sm">
+							<div className="flex flex-col text-xs">
 									<span>References:</span>
 									{props.articles.map((article, index) => (
 											<a key={index} href={article.link} className="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">
