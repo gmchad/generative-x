@@ -63,6 +63,7 @@ export default function TweetComponent({ tweet, filterId, isDynamic }: { tweet: 
 										{media.type === 'image' ? (
 											<FilteredImage
 												imageUrl={media.url}
+												imageText={replacedTweetText || ''}
 												filterId={filterId}
 												altText={media.altText || 'Tweet image'}
 												className='h-full object-cover absolute'
