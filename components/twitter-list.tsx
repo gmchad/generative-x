@@ -50,7 +50,7 @@ export default function TwitterList() {
 		return (
 			<QueryClientProvider client={queryClient}>
 
-				<div className="w-full rounded sm:rounded-lg">
+				<div className="w-full max-w-4xl rounded sm:rounded-lg">
 					{/* Options Switcher */}
 					<div className="flex justify-between mt-2 mx-2 pb-2 sticky top-0 backdrop-blur-sm z-50">
 						<Tabs defaultValue="null" className="">
