@@ -93,9 +93,8 @@ If the tweet is extremely political, call the \`get_political_stance\` to show a
     completion.onFunctionCall(
         "get_political_stance",
         async ({summary} : {summary: string}) => {
-            // const polticalData = await getPoliticalApi(tweet.content)
-            // onUpdateDynamic(<Politics props={polticalData} />, true);
-            onUpdateDynamic(<></>, true);
+            const polticalData = await getPoliticalApi(tweet.content)
+            onUpdateDynamic(<Politics props={polticalData} />, true);
         },
     );
 
