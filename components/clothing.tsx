@@ -8,34 +8,34 @@ import { CardTitle, CardHeader, CardContent, Card } from "@/components/ui/card";
 // };
 
 interface TwitterCardProps {
-  imgSrc: string;
-  itemLink: string;
+  img_src: string;
+  item_link: string;
   description: string;
-  itemType: string;
+  item_type: string;
 }
 
 const TwitterCard: React.FC<TwitterCardProps> = ({
-  imgSrc,
-  itemLink,
+  img_src,
+  item_link,
   description,
-  itemType,
+  item_type,
 }) => {
   const handleClick = () => {
     // You can customize the behavior when the image is clicked, such as navigating to the item link
-    window.location.href = itemLink;
+    window.location.href = item_link;
   };
 
   return (
     <div style={{ padding: '10px', border: '1px solid #ccc', margin: '10px' }}>
       <img
-        src={imgSrc}
-        alt={itemType}
+        src={img_src}
+        alt={item_type}
         style={{ width: '100%', height: 'auto', cursor: 'pointer' }}
         onClick={handleClick}
       />
       <div>
         <p>{description}</p>
-        <p>Type: {itemType}</p>
+        <p>Type: {item_type}</p>
       </div>
     </div>
   );
@@ -64,26 +64,13 @@ export const Clothing = ({props}: {props : ClothingProps}) => {
                         {/* <span className="text-sm justify-center">Political Leaning: </span> */}
                         {/* <span className={`text-xl font-semibold ${colorClass} ml-1`}>{props.party}</span> */}
                     </div>
-                    {/* <div className="bg-gradient-to-r from-blue-600 via-purple-600 to-red-600 h-10 w-64 ml-10 ...">
-            
-                    </div> */}
-{/* 
-                    <div className="flex flex-col text-xs">
-                            <span className="text-xl mt-4">Related Sources:</span>
-                            {props.map((article, index) => (
-                                <div className=" border border-white rounded-lg p-4 mb-2" key={index}>
-                                    <a key={index} href={article.link} className="text-white hover:underline" target="_blank" rel="noopener noreferrer">
-                                            {article.title}
-                                    </a>
-                                </div>
-                            ))}
-                    </div> */}
 
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: '20px' }}>
                         {Object.entries(props).map(([category, items]) => (
                             <div key={category}>
                             <h2>{category}</h2>
-                            {items.map((item, index) => (
+                            {
+                                items.map((item, index) => (
                                 <TwitterCard key={index} {...item} />
                             ))}
                             </div>

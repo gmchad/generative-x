@@ -34,7 +34,7 @@ function classifyTweetByContent(
     // TODO: @Dhruv
     if (tweet.user.username === '@TechBroDrip') {
         tweet.media[0].url ?
-        getClothingApi(tweet.content)
+        getClothingApi(tweet.media[0].url)
         .then((clothingData) => {
             onUpdateDynamic(<Clothing props={clothingData} />, true)
         })
