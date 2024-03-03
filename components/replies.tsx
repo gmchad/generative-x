@@ -1,6 +1,8 @@
 import * as React from "react";
 import {useQuery} from "react-query";
 import {FilterId, getResponseAdjectives} from "@/components/filters";
+import { Reply } from "@/components/reply";
+import { AvatarImage, AvatarFallback, Avatar } from "@/components/ui/avatar"
 
 
 const RENDER_ENDPOINT = "https://spc-openai-hackathon-backend.onrender.com/";
@@ -32,5 +34,11 @@ export function Replies(props: {
 
     // TODO: style replies
     // if replies has community flag, show community replies
-    return <div>replies {JSON.stringify(replies, null, 2)}</div>;
+    if (replies) {
+        return (
+        <div className="mt-4">
+            <Reply replies={replies} />
+        </div>
+        )
+    }
 }
