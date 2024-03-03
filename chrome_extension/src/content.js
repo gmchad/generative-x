@@ -92,7 +92,7 @@ function parseTweetsFromTimeline(eTimeline) {
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     if (request.action !== "parseXTimeline")
         return;
-
+    const openInNewWindow = request.openInNewWindow;
 
     // @Timeline: parse and then replace
     let eTimeline = document.querySelector('[aria-label="Timeline: Your Home Timeline"]');
@@ -110,6 +110,14 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     console.log('Tweets:', tweets);
     const queryString = encodeURIComponent(JSON.stringify(tweets));
     console.log('Encoded length:', queryString.length);
+
+    if (openInNewWindow) {
+        // Example of opening a new window with a URL including the query string.
+        // You might want to adjust this to fit your specific requirements.
+        const newWindowUrl = `https://spc-openai-hackathon.vercel.app/?tweets=${queryString}`;
+        window.open(newWindowUrl, '_blank');
+        return;
+    }
 
     // IFrame to our Frontend, passing Tweets as Query
     const iFrameHeight = Math.max(600, eTimeline.offsetHeight);
