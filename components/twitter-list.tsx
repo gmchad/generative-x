@@ -51,7 +51,8 @@ export default function TwitterList() {
 			<QueryClientProvider client={queryClient}>
 
 				<div className="w-full rounded sm:rounded-lg">
-					<div className="flex justify-between mt-2 ml-2 sticky top-0 backdrop-blur-sm z-50">
+					{/* Options Switcher */}
+					<div className="flex justify-between mt-2 mx-2 pb-2 sticky top-0 backdrop-blur-sm z-50">
 						<Tabs defaultValue="null" className="">
 						<TabsList>
 							{FiltersList.map((filter, index) => (
@@ -59,7 +60,7 @@ export default function TwitterList() {
 							))}
 						</TabsList>
 						</Tabs>
-						<div className="flex justify-end mt-2 mr-2">
+						<div className="flex justify-end mt-2">
 							<div className="mr-2">Dynamic UI</div>
 							<Switch onClick={()=> setDynamic(!isDynamic)}/>
 						</div>
