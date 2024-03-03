@@ -75,7 +75,7 @@ export const Clothing = ({props}: {props : ClothingProps}) => {
                                         <div className="flex items-center">
                                         <div className="text-lg text-black shadcn-accent-pill rounded-full"></div>
                                     <div key={category}>
-                                    <h2>{category}</h2>
+                                    <h2 style={{ textAlign: 'center' }}>{category}</h2>
                                         {
                                             items.map((item: any , index: number) => (
                                             <TwitterCard key={index} {...item} />
