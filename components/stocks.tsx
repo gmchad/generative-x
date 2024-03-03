@@ -1,18 +1,22 @@
 import { CardTitle, CardDescription, CardHeader, CardContent, CardFooter, Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
-interface StocksProps {
-    ticker: string;
-    amount_today: number;
-    percent_today: number;
-    current_price: number;
-    high: number;
-    low: number;
-    volume: number;
-    close_prices: number;
-}
+type ClosePrices = {
+  [key: string]: number;
+};
 
-export const Stocks = ({props}: {props: StocksProps}) => {
+type StockProps = {
+  amount_today: number;
+  close_prices: ClosePrices;
+  current_price: number;
+  high: number;
+  low: number;
+  percent_today: number;
+  ticker: string;
+  volume: number;
+};
+
+export const Stocks = ({props}: {props: StockProps}) => {
     // Format volume with commas and prevent overflow
     const formattedVolume = props.volume.toLocaleString();
 

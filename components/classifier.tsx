@@ -40,7 +40,7 @@ You are a generative twitter bot. You will receive raw tweet data and manipulate
 
 If the tweet mentions the weather of a location, call \`get_current_weather\` to show the weather UI.
 If the tweet mentions the stocks and/or has a ticket symbol like $AAPL, call \`get_stock_price\` to show the stock price UI.				
-If the tweet mentions anything political, call the \`get_political_stance\` to show a political stance UI.
+If the tweet is extremely political, call the \`get_political_stance\` to show a political stance UI.
 				`,
             },
             {
@@ -93,16 +93,16 @@ If the tweet mentions anything political, call the \`get_political_stance\` to s
     completion.onFunctionCall(
         "get_political_stance",
         async ({summary} : {summary: string}) => {
-            const polticalData = await getPoliticalApi(tweet.content)
-            onUpdateDynamic(<Politics props={polticalData} />, true);
+            // const polticalData = await getPoliticalApi(tweet.content)
+            // onUpdateDynamic(<Politics props={polticalData} />, true);
+            onUpdateDynamic(<></>, true);
         },
     );
 
     completion.onFunctionCall(
         "get_stock_price",
         async ({ticker} : {ticker: string}) => {
-
-            const stockData = await getStockData(ticker);
+            const stockData = await getStockApi(ticker);
             onUpdateDynamic(<Stocks props={stockData} />, true);
         },
     );
@@ -111,7 +111,6 @@ If the tweet mentions anything political, call the \`get_political_stance\` to s
         "get_current_weather",
         async ({location, unit}) => {
             const weatherData = await getWeatherApi(location);
-            console.log(weatherData)
             onUpdateDynamic(
                 <Weather props={weatherData}/>, true
             );
