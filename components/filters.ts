@@ -1,13 +1,15 @@
 export type FilterId = 'anime' | 'cyberpunk';
 
-export const Filters: { [id in FilterId]: { name: string; imageFilter: string } } = {
+export const Filters: { [id in FilterId]: { name: string; imageFilter: string; responseAdjectives: string } } = {
     'anime': {
         name: 'Anime',
-        imageFilter: 'Anime, like Demon Slayer'
+        imageFilter: 'Anime, like Demon Slayer',
+        responseAdjectives: 'kawaii, cute',
     },
     'cyberpunk': {
         name: 'Cyberpunk',
-        imageFilter: 'Cyberpunk, like Blade Runner'
+        imageFilter: 'Cyberpunk, like Blade Runner',
+        responseAdjectives: 'gen-z, braindead',
     },
 }
 
