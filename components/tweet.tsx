@@ -13,7 +13,7 @@ import {EXPERIMENTAL_speakTextStream} from "@/components/elevenlabs.client";
 
 
 // set to false to always show the original picture
-const FILTER_ON_AVATARS = false;
+const FILTER_ON_AVATARS = true;
 
 
 export default function TweetComponent({ tweet, filterId, isDynamic }: { tweet: Tweet, filterId: FilterId | null, isDynamic: boolean }) {
