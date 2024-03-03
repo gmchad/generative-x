@@ -1,50 +1,54 @@
 'use client'
 import React from "react";
-import { useState, useRef, useEffect } from "react";
-import { useSearchParams } from "next/navigation";
+import { useState, useRef } from "react";
+import {ReadonlyURLSearchParams, useSearchParams} from "next/navigation";
 import TweetComponent from "@/components/tweet";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Switch } from "./ui/switch"
 import { Tweet as TweetType, TwitterUser, TweetMedia, TweetEngagement } from "@/types/tweets";
-import { trimmedTweetData as initialTweets} from "@/lib/test-data";
+import { trimmedTweetData as hardcodedTweets} from "@/lib/test-data";
 import {FilterId, FiltersList} from "@/components/filters";
 
-// AI
-// import { useUIState, useActions } from "ai/rsc";
+
+
+function getQueryTweets(queryParams: ReadonlyURLSearchParams): TweetType[] | null {
+	const queryTweetsEncoded = queryParams.get('tweets') || null;
+	if (queryTweetsEncoded) {
+		let decoded: string | null = null;
+		try {
+			decoded = decodeURIComponent(queryTweetsEncoded);
+		} catch (error) {
+			console.error("Error decoding query tweets", error, queryTweetsEncoded.length, queryTweetsEncoded);
+		}
+		if (decoded) {
+			try {
+				return JSON.parse(decoded) as TweetType[];
+			} catch (error) {
+				console.error("Error parsing query tweets", error, decoded);
+			}
+		}
+	}
+	return null;
+}
 
 
 export default function TwitterList() {
+
 		// take tweets passed as Query Params or use the initialTweets as fallback
-		const queryParams = useSearchParams();
-		const queryTweetsEncoded = queryParams.get('tweets') || null;
-		let queryTweets: TweetType[] | null = null;
-		if (queryTweetsEncoded) {
-				let decoded: string | null = null;
-				try {
-						decoded = decodeURIComponent(queryTweetsEncoded);
-				} catch (error) {
-						console.error("Error decoding query tweets", error, queryTweetsEncoded.length, queryTweetsEncoded);
-				}
-				if (decoded) {
-						try {
-								queryTweets = JSON.parse(decoded) as TweetType[];
-						} catch (error) {
-								console.error("Error parsing query tweets", error, decoded);
-						}
-				}
-		}
-		const [displayedTweets, setDisplayedTweets] = useState(queryTweets || initialTweets);
+		const initialTweets = getQueryTweets(useSearchParams()) || hardcodedTweets;
+
+		// state
+		const [displayedTweets, setDisplayedTweets] = useState(initialTweets);
 		const endOfListRef = useRef<HTMLDivElement>(null);
 
 		const [filterId, setFilterId] = useState<FilterId | null>(null);
 		const [isDynamic, setDynamic] = useState<boolean>(false);
 
-		useEffect(() => {
-				// Scroll to the bottom of the list whenever displayedTweets changes
-				// NOTE: disabled because if does on the first scroll when embedding the page on Twitter
-				// endOfListRef.current?.scrollIntoView({ behavior: "smooth" });
-				console.log(isDynamic)
-		}, [displayedTweets, filterId, isDynamic]);
+		// useEffect(() => {
+		// 		// Scroll to the bottom of the list whenever displayedTweets changes
+		// 		// NOTE: disabled because if does on the first scroll when embedding the page on Twitter
+		// 		// endOfListRef.current?.scrollIntoView({ behavior: "smooth" });
+		// }, [displayedTweets, filterId]);
 
 
 
