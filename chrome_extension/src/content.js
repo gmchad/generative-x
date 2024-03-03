@@ -49,10 +49,13 @@ function parseTweetsFromTimeline(eTimeline) {
         // Body > (next?):Embeds
         let tweetImageURLs = [];
         if (eEmbed) {
-            // NOTE:using imd with alt="Image", which may be restrictive, but it's the best we can do atm
-            tweetImageURLs = Array.from(eEmbed.querySelectorAll('div > img[alt="Image"]'))
-                .filter(e => e.src && e.src.indexOf('/emoji/v2/') === -1)
-                .map(e => e.src);
+            // NOTE: using img with alt="Image", which may be restrictive, but it's the best we can do atm
+            let imgSelector = eEmbed.querySelectorAll('div > img[alt="Image"]');
+            // if empty (no img with alt="Image"), try with alt="Embedded video"
+            if (!imgSelector.length)
+                imgSelector = eEmbed.querySelectorAll('div > img[alt="Embedded video"]');
+            if (imgSelector.length)
+                tweetImageURLs = Array.from(imgSelector).filter(e => e.src && e.src.indexOf('/emoji/v2/') === -1).map(e => e.src);
         }
 
         // Body > (last):Stats
