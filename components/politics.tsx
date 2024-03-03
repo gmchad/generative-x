@@ -57,7 +57,7 @@ export const Politics = ({props}: {props : PoliticalProps}) => {
 					
 							</div>
 
-							<div className="flex flex-col text-sm">
+							<div className="flex flex-col text-xs">
 									<span className="text-xl mt-4">Related Sources:</span>
 									{props.articles.map((article, index) => (
 										<div className=" border border-white rounded-lg p-4 mb-2" key={index}>

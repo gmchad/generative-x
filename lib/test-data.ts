@@ -240,11 +240,11 @@ export const tweetData: Tweet[] = [
 			"avatarUrl": "https://pbs.twimg.com/profile_images/1736573607613014016/fSsKNAmm_x96.jpg",
 			"verified": false
 		},
-		"content": ".\n@elonmusk\n's Engineering Design Process\n\n1. Make requirements less dumb\n2. Delete the part or process\n3. Simplify or optimize\n4. Accelerate cycle-time\n5. Automate\n\n\"The most common error of a smart engineer is to optimise a thing that should not exist...”",
+		"content": ".\n@elonmusk\n's Engineering Design Process\n\n1. Make requirements less dumb \n2. Delete the part or process\n3. Simplify or optimize\n4. Accelerate cycle-time\n5. Automate\n\n\"The most common error of a smart engineer is to optimise a thing that should not exist...”",
 		"media": [
 			{
 				"type": "image",
-				"url": "https://pbs.twimg.com/ext_tw_video_thumb/1763413856976605185/pu/img/92QZumlU_wQ2oz-m?format=jpg&name=medium"
+				"url": "https://pbs.twimg.com/ext_tw_video_thumb/1763413856976605185/pu/img/92QZumlU_wQ2oz-m?format=jpg&name=medium&eeid=3"
 			}
 		],
 		"engagement": {
@@ -319,12 +319,6 @@ export const tweetData: Tweet[] = [
 			"verified": false
 		},
 		"content": "“The problem that Google faces today relative to the likes of OpenAI and Perplexity is very similar to what we did to Microsoft 20 years ago. What ChatGPT in particular has made us realize is that many of the tasks that we have so far labeled \"search\" and where we click on blue…",
-		"media": [
-			{
-				"type": "image",
-				"url": "https://pbs.twimg.com/profile_images/1460920581/profile2_normal.jpg"
-			}
-		],
 		"engagement": {
 			"replies": "31",
 			"reposts": "52",
