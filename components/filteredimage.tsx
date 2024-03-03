@@ -1,5 +1,4 @@
 import React from 'react';
-import {Skeleton} from "@/components/ui/skeleton";
 import {FilterId, getImageFilter} from "@/components/filters";
 
 
@@ -113,7 +112,11 @@ export function FilteredImage(props: {
     return <div className="mt-2">
         {loading ? (
             // <Skeleton className="h-48 w-full rounded-lg"/>
-            <picture><img src={imageUrl} alt={props.altText} className={props.className + ' blur-lg grayscale'}/></picture>
-        ): `Issue filtering image ${styleText}`}
+            <picture><img src={imageUrl} alt={props.altText} className={props.className + ' blur-lg grayscale'}/>
+            </picture>
+        ) : (
+            // `Issue filtering image ${styleText}`
+            <picture><img src={imageUrl} alt={props.altText} className={props.className}/></picture>
+        )}
     </div>;
 }
