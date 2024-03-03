@@ -30,5 +30,7 @@ export function Replies(props: {
 
     console.log(replies);
 
+    // TODO: style replies
+    // if replies has community flag, show community replies
     return <div>replies {JSON.stringify(replies, null, 2)}</div>;
 }

@@ -3,7 +3,9 @@ import {z} from 'zod';
 import OpenAI from 'openai';
 
 import {runOpenAICompletion} from '@/lib/utils';
-import {getWeather, getStockData, getPoliticalLeaning} from '@/lib/test-data';
+import {getStockData, getPoliticalLeaning} from '@/lib/test-data';
+
+import { getWeatherApi } from "@/lib/data";
 
 import {Weather} from '@/components/weather';
 import {Stocks} from '@/components/stocks';
@@ -38,7 +40,7 @@ You are a generative twitter bot. You will receive raw tweet data and manipulate
 
 If the tweet mentions the weather of a location, call \`get_current_weather\` to show the weather UI.
 If the tweet mentions the stocks and/or has a ticket symbol like $AAPL, call \`get_stock_price\` to show the stock price UI.				
-If the tweet mentions politics, call the \`get_political_stance\` to show a political stance UI.	
+If the tweet mentions politics, call the \`get_political_stance\` to show a political stance UI.
 				`,
             },
             {
@@ -53,7 +55,7 @@ If the tweet mentions politics, call the \`get_political_stance\` to show a poli
                 parameters: z.object({
                     location: z
                         .string()
-                        .describe("The city and state, e.g. San Francisco, CA"),
+                        .describe("The city and state, e.g. San Francisco, London, Hawaii"),
                     unit: z.string().describe("The unit of the temperature, e.g. C or F"),
                 }),
             },
@@ -108,14 +110,10 @@ If the tweet mentions politics, call the \`get_political_stance\` to show a poli
     completion.onFunctionCall(
         "get_current_weather",
         async ({location, unit}) => {
-            const {temperature, description} = await getWeather(location, unit);
+            const weatherData = await getWeatherApi(location);
+            console.log(weatherData)
             onUpdateDynamic(
-                <Weather
-                    temperature={temperature}
-                    // unit={unit}
-                    description={description}
-                />
-                , true
+                <Weather props={weatherData}/>, true
             );
         },
     );

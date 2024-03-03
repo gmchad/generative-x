@@ -16,41 +16,40 @@ interface WeatherProps {
 	icon?: string;
 }
 
-export const Weather = ({
-	location,
-	temperature,
-	description,
-	feels_like,
-	humidity,
-	wind_speed,
-	wind_direction,
-	icon,
-}: WeatherProps) => {
-	const iconUrl = `https://openweathermap.org/img/wn/${icon}@2x.png`;
+export const Weather = ({props}: {props: WeatherProps})  => {
   return (
-    <Card className="w-full max-w-sm">
+    <Card className="w-full max-w-sm relative overflow-hidden">
+			<video
+				autoPlay
+				loop
+				muted
+				className="absolute top-0 left-0 h-full object-cover opacity-50 z-0"
+				src="/suncloud.mp4"
+			>
+				Your browser does not support the video tag.
+			</video>
       <CardContent className="p-6 grid gap-4">
         <div className="flex flex-row items-start gap-4">
           <div className="flex flex-col justify-center">
-            <h3 className="text-sm font-medium leading-none tracking-tighter">{location}</h3>
-            <p className="text-xs leading-none tracking-tighter">{description}</p>
+            <h3 className="text-sm font-medium leading-none tracking-tighter">{props.location}</h3>
+            <p className="text-xs leading-none tracking-tighter">{props.description}</p>
           </div>
-          <img src={iconUrl} alt="alt text" title="Title" className="w-20 h-20 ml-auto"/>
+          <img src={props.icon} alt="alt text" title="Title" className="w-20 h-20 ml-auto"/>
         </div>
         <div className="grid gap-0.5">
-          <p className="text-4xl font-semibold tracking-tighter dark:text-gray-300">{temperature}°F</p>
-          <p className="text-xs tracking-tighter dark:text-gray-400">Feels like {feels_like}°F</p>
+          <p className="text-4xl font-semibold tracking-tighter dark:text-gray-300">{props.temperature}°F</p>
+          <p className="text-xs tracking-tighter dark:text-gray-400">Feels like {props.feels_like}°F</p>
         </div>
         <div className="grid grid-cols-2 items-center gap-0.5 text-sm">
           <p className="flex items-center gap-1">
             <DropletIcon className="w-4 h-4 mr-1.5 flex-shrink-0 dark:filter dark:brightness-0.5" />
-            <span>{humidity}%</span>
+            <span>{props.humidity}%</span>
           </p>
           <p className="flex items-center gap-1">
             <WindIcon className="w-4 h-4 mr-1.5 flex-shrink-0 dark:filter dark:brightness-0.5" />
-            <span>{wind_speed} mph</span>
+            <span>{props.wind_speed} mph</span>
 			<ArrowUpIcon 
-				style={{ transform: `rotate(${wind_direction}deg)` }}
+				style={{ transform: `rotate(${props.wind_direction}deg)` }}
 				className="w-4 h-4 mr-1.5 flex-shrink-0 dark:filter dark:brightness-0.5" />
           </p>
         </div>
