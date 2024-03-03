@@ -31,7 +31,7 @@ export function Replies(props: {
         staleTime: Infinity,
     });
 
-    console.log(replies);
+    // console.log(replies);
 
     if (replies) {
         // if no community notes, remove.

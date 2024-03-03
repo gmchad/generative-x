@@ -54,9 +54,10 @@ function classifyTweetByContent(
 You are a generative twitter bot. You will receive raw tweet data and manipulate the data to fit certain criterias.
 
 If the tweet mentions the weather of a location, call \`get_current_weather\` to show the weather UI.
-If the tweet mentions the stocks and/or has a ticket symbol like $AAPL, call \`get_stock_price\` to show the stock price UI.				
-If the tweet is extremely political, call the \`get_political_stance\` to show a political stance UI.
+If the tweet mentions the stocks and/or has a ticket symbol like $AAPL, $TSLA, $META, $MSFT, $GOOG call \`get_stock_price\` to show the stock price UI.				
+If the tweet mentions deep political issues, call the \`get_political_stance\` to show a political stance UI.
 
+Otherwise just say 'reply' and we will show a reply UI.
 				`,
             },
             {
