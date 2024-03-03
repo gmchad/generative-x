@@ -24,7 +24,7 @@ export default function TweetComponent({ tweet, filterId, isDynamic }: { tweet: 
 
 		const DynamicComponent = isClassified ? tweetComponent : reallyDynamic ? <DynamicSkeleton/> : null;
 
-		const voiceId = getFilterVoiceId(filterId);
+		const voiceId = getFilterVoiceId(filterId) || undefined;
 
 		return (
 				<div className="flex border-b border-gray-700 p-4 bg-black">
@@ -75,11 +75,11 @@ export default function TweetComponent({ tweet, filterId, isDynamic }: { tweet: 
 								))}
 								{/* Replies */}
 								{isReply && (
-									<Replies tweetId={tweet.id} tweetContent={tweet.content} filterId={filterId} className=""/>
+									<Replies tweetId={tweet.id} tweetContent={tweet.content} filterId={filterId} voiceId={voiceId} className=""/>
 								)}
 								{/* Displaying some engagement metrics */}
 								<div className="mt-2 text-sm text-gray-400">
-										<span onClick={() => EXPERIMENTAL_speakTextStream(replacedTweetText,voiceId || undefined)}>Likes: {tweet.engagement.likes}</span> ·
+										<span onClick={() => EXPERIMENTAL_speakTextStream(replacedTweetText,voiceId)}>Likes: {tweet.engagement.likes}</span> ·
 										<span> Replies: {tweet.engagement.replies}</span> ·
 										<span> Reposts: {tweet.engagement.reposts}</span>
 								</div>

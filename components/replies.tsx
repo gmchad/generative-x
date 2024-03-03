@@ -12,6 +12,7 @@ export function Replies(props: {
     tweetContent: string,
     tweetId: string,
     filterId: FilterId | null,
+    voiceId: string | undefined,
     className: string
 }) {
 
@@ -32,12 +33,12 @@ export function Replies(props: {
 
     console.log(replies);
 
-    // TODO: style replies
-    // if replies has community flag, show community replies
     if (replies) {
+        // if no community notes, remove.
+        if (replies.community_note == "None") { delete replies.community_note}
         return (
         <div className="mt-4">
-            <Reply replies={replies} />
+            <Reply replies={replies} voiceId={props.voiceId} />
         </div>
         )
     }
