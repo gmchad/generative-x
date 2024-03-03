@@ -7,7 +7,7 @@ import {useClassifiedTweet} from "@/components/classifier";
 import TweetComponentSkeleton from "@/components/tweetskeleton";
 
 
-export function TweetAI({ tweet }: { tweet: Tweet }) {
+export function TweetAI({ tweet, filterType }: { tweet: Tweet, filterType?: String }) {
 
 		const {isClassified, tweetComponent, replacedTweetText} = useClassifiedTweet(tweet);
 

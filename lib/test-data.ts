@@ -343,3 +343,5 @@ export const tweetData: Tweet[] = [
 		"timestamp": "2024-03-01T12:04:00.000Z"
 	}
 ]
+
+export const trimmedTweetData = tweetData.slice(0, 2);
