@@ -9,14 +9,14 @@ import TweetComponentSkeleton from "@/components/tweetskeleton";
 
 export function TweetAI({ tweet }: { tweet: Tweet }) {
 
-		const {isClassified, tweetComponent} = useClassifiedTweet(tweet);
+		const {isClassified, tweetComponent, replacedTweetText} = useClassifiedTweet(tweet);
 
 		return (
-				<TweetComponent tweet={tweet} DynamicComponent={isClassified ? tweetComponent : <TweetComponentSkeleton/>} />
+				<TweetComponent tweet={tweet} replacedText={replacedTweetText} DynamicComponent={isClassified ? tweetComponent : <TweetComponentSkeleton/>} />
 		);
 }
 
-export default function TweetComponent({ tweet, DynamicComponent }: { tweet: Tweet, DynamicComponent?: React.ReactNode }) {
+export default function TweetComponent({ tweet, replacedText, DynamicComponent }: { tweet: Tweet, replacedText: string, DynamicComponent?: React.ReactNode }) {
 		return (
 				<div className="flex border-b border-gray-700 p-4 bg-black">
 						<div className="mr-4">
@@ -37,7 +37,7 @@ export default function TweetComponent({ tweet, DynamicComponent }: { tweet: Twe
 										</span>
 								</div>
 								<div className="mt-2 text-sm leading-snug text-gray-200">
-										<p>{tweet.content}</p>
+										<p>{replacedText}</p>
 								</div>
 								{/* Render DynamicComponent if it exists */}
 								{DynamicComponent && (
