@@ -81,89 +81,24 @@ export const getStockData = (ticker: string): Promise<StocksProps> => {
 };
 
 export const tweetData: Tweet[] = [
+    // Weather in SF
     {
-        "id": "1762494379540001174",
-        "link": "/TechBroDrip/status/1762494379540001174",
+        "id": "1719952696869003550",
+        "link": "/frank_smith1111/status/1719952696869003550",
         "user": {
-            "username": "@TechBroDrip",
-            "displayName": "Dripped Out Technology Brothers",
-            "avatarUrl": "https://pbs.twimg.com/profile_images/1529556000465793024/wiaHs-BI_x96.jpg",
+            "username": "@frank_smith1111",
+            "displayName": "Frank Smith",
+            "avatarUrl": "https://pbs.twimg.com/profile_images/1617740523456040961/LCMDvOCY_x96.jpg",
             "verified": false
         },
-        "content": "Mark Zuckerberg (founder of Meta)",
-        "media": [{"type": "image", "url": "https://pbs.twimg.com/media/GHWjTBPbwAEBT0S?format=jpg&name=medium"}],
-        "engagement": {"replies": "10", "reposts": "30", "likes": "927", "views": "63K"},
-        "timestamp": "2024-02-27T15:06:20.000Z"
-    },
-    {
-        "id": "1726679121126883442",
-        "link": "/TechBroDrip/status/1726679121126883442",
-        "user": {
-            "username": "@TechBroDrip",
-            "displayName": "Dripped Out Technology Brothers",
-            "avatarUrl": "https://pbs.twimg.com/profile_images/1529556000465793024/wiaHs-BI_x96.jpg",
-            "verified": false
-        },
-        "content": "Emmett Shear (CEO of OpenAI + co-founder and former CEO of Twitch)",
-        "media": [{"type": "image", "url": "https://pbs.twimg.com/media/F_ZlVK3asAAw81i?format=jpg&name=medium"}],
-        "engagement": {"replies": "17", "reposts": "4", "likes": "160", "views": "22K"},
-        "timestamp": "2023-11-20T19:09:17.000Z"
-    },
-    {
-        "id": "1726516611962826894",
-        "link": "/TechBroDrip/status/1726516611962826894",
-        "user": {
-            "username": "@TechBroDrip",
-            "displayName": "Dripped Out Technology Brothers",
-            "avatarUrl": "https://pbs.twimg.com/profile_images/1529556000465793024/wiaHs-BI_x96.jpg",
-            "verified": false
-        },
-        "content": "Satya Nadella (CEO of Microsoft)",
-        "media": [{"type": "image", "url": "https://pbs.twimg.com/media/F_XRtQBb0AAwi24?format=jpg&name=medium"}],
-        "engagement": {"replies": "5", "reposts": "13", "likes": "492", "views": "26K"},
-        "timestamp": "2023-11-20T08:23:32.000Z"
-    },
-    {
-        "id": "1726385797656379782",
-        "link": "/TechBroDrip/status/1726385797656379782",
-        "user": {
-            "username": "@TechBroDrip",
-            "displayName": "Dripped Out Technology Brothers",
-            "avatarUrl": "https://pbs.twimg.com/profile_images/1529556000465793024/wiaHs-BI_x96.jpg",
-            "verified": false
-        },
-        "content": "Sam Altman (co-founder of OpenAI and former president of Y Combinator)",
-        "media": [{"type": "image", "url": "https://pbs.twimg.com/media/F_VauwbXYAA-o3Z?format=jpg&name=medium"}],
-        "engagement": {"replies": "", "reposts": "8", "likes": "257", "views": "26K"},
-        "timestamp": "2023-11-19T23:43:43.000Z"
-    },
-    {
-        "id": "1763801233339634110",
-        "link": "/martin_casado/status/1763801233339634110",
-        "user": {
-            "username": "@martin_casado",
-            "displayName": "martin_casado",
-            "avatarUrl": "https://pbs.twimg.com/profile_images/1556885485888237568/HH1iBQNp_x96.jpg",
-            "verified": false
-        },
-        "content": "As we look to the future, it's clear that policies focusing on renewable energy and climate change are not just necessary, but urgent. We must support leaders who prioritize our planet and future generations over short-term gains. 🌍 #ClimateAction #RenewableEnergy",
-        "engagement": {
-            "replies": "45",
-            "reposts": "30",
-            "likes": "250",
-            "views": "20K"
-        },
-        "timestamp": "2024-03-02T15:47:22.000Z"
-    },
-    {
-        "id": "1763801233339634089",
-        "link": "/Scobleizer/status/1763801233339634089",
-        "user": {
-            "username": "@Scobleizer",
-            "displayName": "Robert Scoble",
-            "avatarUrl": "https://pbs.twimg.com/profile_images/1719781327527133184/oOgZZpVK_x96.jpg",
-            "verified": false
-        },
+        // "id": "1763801233339634089",
+        // "link": "/Scobleizer/status/1763801233339634089",
+        // "user": {
+        //     "username": "@Scobleizer",
+        //     "displayName": "Robert Scoble",
+        //     "avatarUrl": "https://pbs.twimg.com/profile_images/1719781327527133184/oOgZZpVK_x96.jpg",
+        //     "verified": false
+        // },
         "content": "The streets of San Francisco are glistening under the steady drizzle today. Rainy days like this bring a certain charm to the city, making every coffee shop corner a cozy refuge. ☔🌁 #SanFranciscoRain",
         "engagement": {
             "replies": "12",
@@ -173,6 +108,8 @@ export const tweetData: Tweet[] = [
         },
         "timestamp": "2024-03-02T10:15:30.000Z"
     },
+
+    // Stock - Tesla
     {
         "id": "1763801233339634099",
         "link": "/Scobleizer/status/1763801233339634099",
@@ -191,6 +128,8 @@ export const tweetData: Tweet[] = [
         },
         "timestamp": "2024-03-02T12:30:45.000Z"
     },
+
+    // Image + Replies
     {
         "id": "1763656445545849004",
         "link": "/USFWS/status/1763656445545849004",
@@ -214,6 +153,111 @@ export const tweetData: Tweet[] = [
             "views": "144K"
         },
         "timestamp": "2024-03-01T20:03:58.000Z"
+    },
+
+    // Politics
+    {
+        "id": "1764318863255097531",
+        "link": "/elonmusk/status/1764318863255097531",
+        "user": {
+            "username": "@elonmusk",
+            "displayName": "Elon Musk",
+            "avatarUrl": "https://pbs.twimg.com/profile_images/1683325380441128960/yRsRRjGO_x96.jpg",
+            "verified": false
+        },
+        "content": "Three things America needs:\n\n- Secure borders\n- Safe cities\n- Sensible spending",
+        "media": [{"type": "image", "url": "https://pbs.twimg.com/media/GHwPy20XUAAQhOy?format=jpg&name=medium"}],
+        "engagement": {"replies": "10K", "reposts": "17K", "likes": "95K", "views": "13M"},
+        "timestamp": "2024-03-03T15:56:11.000Z"
+    },
+    // {
+    //     "id": "1719952696869003550",
+    //     "link": "/frank_smith1111/status/1719952696869003550",
+    //     "user": {
+    //         "username": "@frank_smith1111",
+    //         "displayName": "Frank Smith",
+    //         "avatarUrl": "https://pbs.twimg.com/profile_images/1617740523456040961/LCMDvOCY_x96.jpg",
+    //         "verified": false
+    //     },
+    //     "content": "Like many SF parents my wife and I have begun the grueling process of finding a school for our 4yo daughter.\n\nBoth my wife and I fundamentally believe in public education. We do not want our kids to get a leg up bc their parents have been fortunate to succeed in life.\n\n1/6",
+    //     "engagement": {"replies": "1.4K", "reposts": "643", "likes": "735", "views": "2.1M"},
+    //     "timestamp": "2023-11-02T05:40:52.000Z"
+    // },
+
+    {
+        "id": "1762494379540001174",
+        "link": "/TechBroDrip/status/1762494379540001174",
+        "user": {
+            "username": "@TechBroDrip",
+            "displayName": "Dripped Out Technology Brothers",
+            "avatarUrl": "https://pbs.twimg.com/profile_images/1529556000465793024/wiaHs-BI_x96.jpg",
+            "verified": false
+        },
+        "content": "Mark Zuckerberg (founder of Meta)",
+        "media": [{"type": "image", "url": "https://pbs.twimg.com/media/GHWjTBPbwAEBT0S?format=jpg&name=medium"}],
+        "engagement": {"replies": "10", "reposts": "30", "likes": "927", "views": "63K"},
+        "timestamp": "2024-02-27T15:06:20.000Z"
+    },
+    {
+        "id": "1726516611962826894",
+        "link": "/TechBroDrip/status/1726516611962826894",
+        "user": {
+            "username": "@TechBroDrip",
+            "displayName": "Dripped Out Technology Brothers",
+            "avatarUrl": "https://pbs.twimg.com/profile_images/1529556000465793024/wiaHs-BI_x96.jpg",
+            "verified": false
+        },
+        "content": "Satya Nadella (CEO of Microsoft)",
+        "media": [{"type": "image", "url": "https://pbs.twimg.com/media/F_XRtQBb0AAwi24?format=jpg&name=medium"}],
+        "engagement": {"replies": "5", "reposts": "13", "likes": "492", "views": "26K"},
+        "timestamp": "2023-11-20T08:23:32.000Z"
+    },
+    // {
+    //     "id": "1726679121126883442",
+    //     "link": "/TechBroDrip/status/1726679121126883442",
+    //     "user": {
+    //         "username": "@TechBroDrip",
+    //         "displayName": "Dripped Out Technology Brothers",
+    //         "avatarUrl": "https://pbs.twimg.com/profile_images/1529556000465793024/wiaHs-BI_x96.jpg",
+    //         "verified": false
+    //     },
+    //     "content": "Emmett Shear (CEO of OpenAI + co-founder and former CEO of Twitch)",
+    //     "media": [{"type": "image", "url": "https://pbs.twimg.com/media/F_ZlVK3asAAw81i?format=jpg&name=medium"}],
+    //     "engagement": {"replies": "17", "reposts": "4", "likes": "160", "views": "22K"},
+    //     "timestamp": "2023-11-20T19:09:17.000Z"
+    // },
+    // {
+    //     "id": "1726385797656379782",
+    //     "link": "/TechBroDrip/status/1726385797656379782",
+    //     "user": {
+    //         "username": "@TechBroDrip",
+    //         "displayName": "Dripped Out Technology Brothers",
+    //         "avatarUrl": "https://pbs.twimg.com/profile_images/1529556000465793024/wiaHs-BI_x96.jpg",
+    //         "verified": false
+    //     },
+    //     "content": "Sam Altman (co-founder of OpenAI and former president of Y Combinator)",
+    //     "media": [{"type": "image", "url": "https://pbs.twimg.com/media/F_VauwbXYAA-o3Z?format=jpg&name=medium"}],
+    //     "engagement": {"replies": "", "reposts": "8", "likes": "257", "views": "26K"},
+    //     "timestamp": "2023-11-19T23:43:43.000Z"
+    // },
+
+    {
+        "id": "1763801233339634110",
+        "link": "/martin_casado/status/1763801233339634110",
+        "user": {
+            "username": "@martin_casado",
+            "displayName": "martin_casado",
+            "avatarUrl": "https://pbs.twimg.com/profile_images/1556885485888237568/HH1iBQNp_x96.jpg",
+            "verified": false
+        },
+        "content": "As we look to the future, it's clear that policies focusing on renewable energy and climate change are not just necessary, but urgent. We must support leaders who prioritize our planet and future generations over short-term gains. 🌍 #ClimateAction #RenewableEnergy",
+        "engagement": {
+            "replies": "45",
+            "reposts": "30",
+            "likes": "250",
+            "views": "20K"
+        },
+        "timestamp": "2024-03-02T15:47:22.000Z"
     },
     {
         "id": "1763813991023853587",
