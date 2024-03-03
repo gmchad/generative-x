@@ -2,21 +2,16 @@
 import React from "react";
 import { useState, useRef, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
-import { TweetAI } from "@/components/tweet";
+import TweetComponent from "@/components/tweet";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Button } from "./ui/button";
 import { Switch } from "./ui/switch"
 import { Tweet as TweetType, TwitterUser, TweetMedia, TweetEngagement } from "@/types/tweets";
-import { FilterType } from "@/types/strings";
 import { trimmedTweetData as initialTweets} from "@/lib/test-data";
+import {FilterId, FiltersList} from "@/components/filters";
 
 // AI
 // import { useUIState, useActions } from "ai/rsc";
 
-const filters: FilterType[] = [
-	"fun mode",
-	"serious mode",
-]
 
 export default function TwitterList() {
 		// take tweets passed as Query Params or use the initialTweets as fallback
@@ -41,15 +36,15 @@ export default function TwitterList() {
 		const [displayedTweets, setDisplayedTweets] = useState(queryTweets || initialTweets);
 		const endOfListRef = useRef<HTMLDivElement>(null);
 
-		const [filterType, setFilterType] = useState<String>("")
-		const [isDynamic, setDynamic] = useState<Boolean>(false)
+		const [filterId, setFilterId] = useState<FilterId | null>(null);
+		const [isDynamic, setDynamic] = useState<boolean>(false);
 
 		useEffect(() => {
 				// Scroll to the bottom of the list whenever displayedTweets changes
 				// NOTE: disabled because if does on the first scroll when embedding the page on Twitter
 				// endOfListRef.current?.scrollIntoView({ behavior: "smooth" });
 				console.log(isDynamic)
-		}, [displayedTweets, filterType, isDynamic]);
+		}, [displayedTweets, filterId, isDynamic]);
 
 
 
@@ -58,8 +53,8 @@ export default function TwitterList() {
 					<div className="flex justify-between mt-2 ml-2">
 						<Tabs defaultValue="" className="">
 						<TabsList>
-							{filters.map((filter, index) => (
-								<TabsTrigger key={index} value={filter} onClick={() => setFilterType(filter)}>{filter}</TabsTrigger>
+							{FiltersList.map((filter, index) => (
+								<TabsTrigger key={index} value={filter.id || 'null'} onClick={() => setFilterId(filter.id)}>{filter.name}</TabsTrigger>
 							))}
 						</TabsList>
 						</Tabs>
@@ -70,7 +65,7 @@ export default function TwitterList() {
 					</div>
 
 						{displayedTweets.length > 0 ? displayedTweets.map((tweet, index) => (
-								<TweetAI key={tweet.id} tweet={tweet} filterType={filterType} />
+								<TweetComponent key={tweet.id} tweet={tweet} filterId={filterId} isDynamic={isDynamic} />
 						)) : (
 								<p className="p-4 text-center text-gray-500 dark:text-gray-400">No tweets to display</p>
 						)}

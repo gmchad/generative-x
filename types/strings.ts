@@ -1,1 +1,0 @@
-export type FilterType = "fun mode" | "serious mode";

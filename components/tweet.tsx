@@ -5,18 +5,16 @@ import { Tweet } from "@/types/tweets";
 import { formatDate } from "@/lib/utils";
 import {useClassifiedTweet} from "@/components/classifier";
 import TweetComponentSkeleton from "@/components/tweetskeleton";
+import {FilteredImage} from "@/components/filteredimage";
+import {FilterId} from "@/components/filters";
 
 
-export function TweetAI({ tweet, filterType }: { tweet: Tweet, filterType?: String }) {
+export default function TweetComponent({ tweet, filterId, isDynamic }: { tweet: Tweet, filterId: FilterId | null, isDynamic: boolean }) {
 
-		const {isClassified, tweetComponent, replacedTweetText} = useClassifiedTweet(tweet);
+		const {isClassified, tweetComponent, replacedTweetText} = useClassifiedTweet(tweet, isDynamic);
 
-		return (
-				<TweetComponent tweet={tweet} replacedText={replacedTweetText} DynamicComponent={isClassified ? tweetComponent : <TweetComponentSkeleton/>} />
-		);
-}
+		const DynamicComponent = isClassified ? tweetComponent : isDynamic ? <TweetComponentSkeleton/> : null;
 
-export default function TweetComponent({ tweet, replacedText, DynamicComponent }: { tweet: Tweet, replacedText: string, DynamicComponent?: React.ReactNode }) {
 		return (
 				<div className="flex border-b border-gray-700 p-4 bg-black">
 						<div className="mr-4">
@@ -37,7 +35,7 @@ export default function TweetComponent({ tweet, replacedText, DynamicComponent }
 										</span>
 								</div>
 								<div className="mt-2 text-sm leading-snug text-gray-200">
-										<p>{replacedText}</p>
+										<p>{replacedTweetText}</p>
 								</div>
 								{/* Render DynamicComponent if it exists */}
 								{DynamicComponent && (
@@ -49,7 +47,12 @@ export default function TweetComponent({ tweet, replacedText, DynamicComponent }
 								{tweet.media?.map((media, index) => (
 									<div key={index} className="mt-2 w-full h-64 overflow-hidden rounded-lg relative">
 										{media.type === 'image' ? (
-											<img src={media.url} alt={media.altText || 'Tweet image'} className="h-full object-cover absolute" />
+											<FilteredImage
+												imageUrl={media.url}
+												filterId={filterId}
+												altText={media.altText || 'Tweet image'}
+												className='h-full object-cover absolute'
+											/>
 										) : (
 											<video controls src={media.url} className="w-full h-full object-cover absolute">
 												{media.altText ? <track kind="descriptions" label="descriptions" srcLang="en" /> : null}
@@ -67,5 +70,3 @@ export default function TweetComponent({ tweet, replacedText, DynamicComponent }
 				</div>
 		);
 }
-
-

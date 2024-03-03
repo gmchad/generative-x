@@ -69,7 +69,7 @@ If the tweet mentions the weather of a location, call \`get_current_weather\` to
             onUpdateDynamic(
                 <Weather
                     temperature={temperature}
-                    unit={unit}
+                    // unit={unit}
                     description={description}
                 />
                 , true
@@ -80,7 +80,7 @@ If the tweet mentions the weather of a location, call \`get_current_weather\` to
 }
 
 
-export function useClassifiedTweet(initialTweet: Tweet): {
+export function useClassifiedTweet(initialTweet: Tweet, enabled: boolean): {
     isClassified: boolean,
     tweetComponent: React.ReactNode,
     replacedTweetText: string
@@ -92,6 +92,13 @@ export function useClassifiedTweet(initialTweet: Tweet): {
     const [replacementTweetText, setReplacementTweetText] = React.useState<string | null>(null);
 
     React.useEffect(() => {
+        if (!enabled) {
+            setIsClassified(false);
+            setTweetComponent(null);
+            setReplacementTweetText(null);
+            return;
+        }
+
         async function doClassify() {
             setIsClassified(false);
             classifyTweetByContent(
@@ -106,7 +113,7 @@ export function useClassifiedTweet(initialTweet: Tweet): {
 
         const timeoutId = setTimeout(doClassify, 1000);
         return () => clearTimeout(timeoutId);
-    }, [initialTweet]);
+    }, [enabled, initialTweet]);
 
     return {
         isClassified,
