@@ -53,17 +53,36 @@ export function FilteredImage(props: {
                 const response = await fetch(endpoint);
                 const data = await response.json();
 
-                if (!data.url || !data.url?.startsWith('http')) {
-                    console.error('API response does not contain filteredImageUrl.', data);
-                    return;
+                if (data.url && data.url?.startsWith('http')) {
+
+                    // Save the fetched URL to the cache
+                    clientSideImageCache.set(cacheKey, data.url);
+
+                    // replace the image in the UI only if the client hasn't moved on since
+                    if (!ac.signal.aborted)
+                        setFilteredImageUrl(data.url);
+
+                } else if (data.image) {
+
+                    // Assuming data.image contains the base64-encoded image data
+                    // and assuming the MIME type is known, e.g., 'image/png'.
+                    // You might need to adjust the MIME type based on your actual data or API response.
+                    const base64ImageUrl = `data:image/jpeg;base64,${data.image}`;
+
+                    // Save the base64 URL to the cache
+                    clientSideImageCache.set(cacheKey, base64ImageUrl);
+
+                    // Replace the image in the UI only if the client hasn't moved on since
+                    if (!ac.signal.aborted)
+                        setFilteredImageUrl(base64ImageUrl);
+
+                } else {
+
+                    // If the response doesn't contain a valid URL or base64 image data, log the error
+                    console.error('FilteredImage: Invalid response:', data);
+
                 }
 
-                // Save the fetched URL to the cache
-                clientSideImageCache.set(cacheKey, data.url);
-
-                // replace the image in the UI only if the client hasn't moved on since
-                if (!ac.signal.aborted)
-                    setFilteredImageUrl(data.url);
             } catch (error) {
                 console.error('Error fetching filtered image:', error);
             }
