@@ -46,7 +46,7 @@ export default function TweetComponent({ tweet, filterId, isDynamic }: { tweet: 
 								)}
 								{/* Optionally render media if exists */}
 								{tweet.media?.map((media, index) => (
-									<div key={index} className="mt-2 w-full h-64 overflow-hidden rounded-lg relative">
+									<div key={index} className="mt-2 w-full h-96 overflow-hidden rounded-lg relative">
 										{media.type === 'image' ? (
 											<FilteredImage
 												imageUrl={media.url}
