@@ -51,12 +51,6 @@ export default function TweetComponent({ tweet, filterId, isDynamic }: { tweet: 
 								<div className="mt-2 text-sm leading-snug text-gray-200">
 										<p>{replacedTweetText}</p>
 								</div>
-								{/* Render DynamicComponent if it exists */}
-								{DynamicComponent && (
-									<div className="flex justify-start mt-2 overflow-hidden rounded-lg relative">
-										{DynamicComponent}
-									</div>
-								)}
 								{/* Optionally render media if exists */}
 								{tweet.media?.map((media, index) => (
 									<div key={index} className="mt-2 w-full h-96 overflow-hidden rounded-lg relative" style={{ height: '28rem' }}>
@@ -75,6 +69,12 @@ export default function TweetComponent({ tweet, filterId, isDynamic }: { tweet: 
 										)}
 									</div>
 								))}
+								{/* Render DynamicComponent if it exists */}
+								{DynamicComponent && (
+									<div className="flex justify-start mt-2 overflow-hidden rounded-lg relative">
+										{DynamicComponent}
+									</div>
+								)}
 								{/* Replies */}
 								{isReply && (
 									<Replies tweetId={tweet.id} tweetContent={tweet.content} filterId={filterId} voiceId={voiceId} className=""/>
