@@ -21,6 +21,7 @@ const openai = new OpenAI({
 function classifyTweetByContent(
     tweet: Tweet,
     onUpdateDynamic: (component: React.ReactNode, isDone: boolean) => void,
+    onReplyToText: (newText: string) => void,
     onReplaceTweetText: (newText: string) => void,
 ) {
 
@@ -83,7 +84,8 @@ If the tweet mentions politics, call the \`get_political_stance\` to show a poli
     });
 
     completion.onTextContent((content: string, isFinal: boolean) => {
-        onUpdateDynamic(content, isFinal);
+        // onUpdateDynamic(isFinal ? <Replies tweetId={tweet.id} tweetContent={tweetContent}/> : content, isFinal);
+        isFinal && onReplyToText(tweetContent);
     });
 
     completion.onFunctionCall(
@@ -123,12 +125,14 @@ If the tweet mentions politics, call the \`get_political_stance\` to show a poli
 
 export function useClassifiedTweet(initialTweet: Tweet, enabled: boolean): {
     isClassified: boolean,
+    isReply: boolean,
     tweetComponent: React.ReactNode,
     replacedTweetText: string
 } {
 
     // local state
     const [isClassified, setIsClassified] = React.useState(false);
+    const [isReply, setIsReply] = React.useState<boolean>(false);
     const [tweetComponent, setTweetComponent] = React.useState<React.ReactNode>(null);
     const [replacementTweetText, setReplacementTweetText] = React.useState<string | null>(null);
 
@@ -137,6 +141,7 @@ export function useClassifiedTweet(initialTweet: Tweet, enabled: boolean): {
             setIsClassified(false);
             setTweetComponent(null);
             setReplacementTweetText(null);
+            setIsReply(false);
             return;
         }
 
@@ -148,6 +153,10 @@ export function useClassifiedTweet(initialTweet: Tweet, enabled: boolean): {
                     setTweetComponent(component);
                     isDone && setIsClassified(isDone);
                 },
+                () => {
+                    setIsReply(true);
+                    setIsClassified(true);
+                },
                 (newText) => setReplacementTweetText(newText)
             );
         }
@@ -158,6 +167,7 @@ export function useClassifiedTweet(initialTweet: Tweet, enabled: boolean): {
 
     return {
         isClassified,
+        isReply,
         tweetComponent,
         replacedTweetText: replacementTweetText !== null ? replacementTweetText : initialTweet.content,
     };

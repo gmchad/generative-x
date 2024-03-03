@@ -23,3 +23,7 @@ FiltersList.unshift({name: 'Serious Mode', id: null});
 export function getImageFilter(filterId: FilterId | null): string | null {
     return filterId ? Filters[filterId].imageFilter ?? null : null;
 }
+
+export function getResponseAdjectives(filterId: FilterId | null): string | null {
+    return filterId ? Filters[filterId].responseAdjectives ?? null : null;
+}

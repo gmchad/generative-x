@@ -8,13 +8,14 @@ import TweetComponentSkeleton from "@/components/tweetskeleton";
 import {FilteredImage} from "@/components/filteredimage";
 import {FilterId} from "@/components/filters";
 import DynamicSkeleton from "./dynamicskeleton";
+import {Replies} from "@/components/replies";
 
 
 export default function TweetComponent({ tweet, filterId, isDynamic }: { tweet: Tweet, filterId: FilterId | null, isDynamic: boolean }) {
 
 		const reallyDynamic = isDynamic && tweet.content?.length > 5;
 
-		const {isClassified, tweetComponent, replacedTweetText} = useClassifiedTweet(tweet, reallyDynamic);
+		const {isClassified, isReply, tweetComponent, replacedTweetText} = useClassifiedTweet(tweet, reallyDynamic);
 
 		const DynamicComponent = isClassified ? tweetComponent : reallyDynamic ? <DynamicSkeleton/> : null;
 
@@ -63,6 +64,10 @@ export default function TweetComponent({ tweet, filterId, isDynamic }: { tweet: 
 										)}
 									</div>
 								))}
+								{/* Replies */}
+								{isReply && (
+									<Replies tweetId={tweet.id} tweetContent={tweet.content} filterId={filterId} className=""/>
+								)}
 								{/* Displaying some engagement metrics */}
 								<div className="mt-2 text-sm text-gray-400">
 										<span>Likes: {tweet.engagement.likes}</span> ·

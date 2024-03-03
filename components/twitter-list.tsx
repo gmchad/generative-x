@@ -1,13 +1,17 @@
 'use client'
 import React from "react";
 import { useState, useRef } from "react";
+import {QueryClient, QueryClientProvider} from "react-query";
 import {ReadonlyURLSearchParams, useSearchParams} from "next/navigation";
+
 import TweetComponent from "@/components/tweet";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Switch } from "./ui/switch"
 import { Tweet as TweetType, TwitterUser, TweetMedia, TweetEngagement } from "@/types/tweets";
 import { tweetData as hardcodedTweets} from "@/lib/test-data";
 import {FilterId, FiltersList} from "@/components/filters";
+
+const queryClient = new QueryClient()
 
 
 function getQueryTweets(queryParams: ReadonlyURLSearchParams): TweetType[] | null {
@@ -44,6 +48,8 @@ export default function TwitterList() {
 
 
 		return (
+			<QueryClientProvider client={queryClient}>
+
 				<div className="w-full rounded sm:rounded-lg">
 					<div className="flex justify-between mt-2 ml-2 sticky top-0 backdrop-blur-sm z-50">
 						<Tabs defaultValue="null" className="">
@@ -72,5 +78,7 @@ export default function TwitterList() {
 							<Button className="rounded" size="lg" onClick={addTweet}>Load More Tweets</Button>
 						</div> */}
 				</div>
+
+			</QueryClientProvider>
 		);
 }
