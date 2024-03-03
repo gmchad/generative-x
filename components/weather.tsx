@@ -14,7 +14,6 @@ interface WeatherProps {
 	wind_speed?: number;
 	wind_direction?: string;
 	icon?: string;
-    unit: string;
 }
 
 export const Weather = ({
@@ -26,7 +25,6 @@ export const Weather = ({
 	wind_speed,
 	wind_direction,
 	icon,
-    unit,
 }: WeatherProps) => {
 	const iconUrl = `https://openweathermap.org/img/wn/${icon}@2x.png`;
   return (
