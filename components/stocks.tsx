@@ -19,13 +19,17 @@ type StockProps = {
 
 export const Stocks = ({props}: {props: StockProps}) => {
     // Format volume with commas and prevent overflow
-    const formattedVolume = props.volume.toLocaleString();
-    const data = props.close_prices;
+    const formattedVolume = props.volume?.toLocaleString();
+    const prices = props.close_prices || {};
+    const pricesKeys = Object.keys(prices);
+    const hasClosePrices = pricesKeys.length > 0;
     let color;
-    if(props.current_price < props.close_prices[Object.keys(props.close_prices)[0]]) {
-        color = "text-red-500"; // Using Tailwind CSS for red color
-    } else {
-        color = "text-green-500"; // Using Tailwind CSS for green color
+    if (hasClosePrices) {
+        if (props.current_price < prices[pricesKeys[0]]) {
+            color = "text-red-500"; // Using Tailwind CSS for red color
+        } else {
+            color = "text-green-500"; // Using Tailwind CSS for green color
+        }
     }
     return (
         <Card className="w-full max-w-sm">
@@ -33,9 +37,11 @@ export const Stocks = ({props}: {props: StockProps}) => {
                 <CardTitle className="text-2xl">{props.ticker}</CardTitle>
             </CardHeader>
             <CardContent className="grid gap-1.5">
-                <div className="flex items-center justify-between">
-                    <LineChart data={data} width={300} height={200} />
-                </div>
+                {hasClosePrices && (
+                    <div className="flex items-center justify-between mb-2">
+                        <LineChart data={prices} width={320} height={100}/>
+                    </div>
+                )}
                 <div className="flex items-center justify-between">
                     <span className="text-3xl font-semibold">${props.current_price.toFixed(2)}</span>
                     <span className={`text-sm font-medium ${color}`}>
