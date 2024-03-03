@@ -5,9 +5,3 @@ export async function getWeatherApi(location: string) {
 	const response = await fetch(endpoint);
 	return response.json();
 }
-
-export async function getStockApi(ticker: string) {
-	const endpoint = `${RENDER_ENDPOINT}/text_to_weather?location=${encodeURIComponent(location)}`;
-	const response = await fetch(endpoint);
-	return response.json();
-}
