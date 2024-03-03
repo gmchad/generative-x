@@ -19,7 +19,7 @@ export default function TwitterList() {
 				try {
 						decoded = decodeURIComponent(queryTweetsEncoded);
 				} catch (error) {
-						console.error("Error decoding query tweets", error, queryTweetsEncoded);
+						console.error("Error decoding query tweets", error, queryTweetsEncoded.length, queryTweetsEncoded);
 				}
 				if (decoded) {
 						try {
