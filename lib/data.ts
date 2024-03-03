@@ -17,3 +17,8 @@ export async function getPoliticalApi(content: string) {
 	const response = await fetch(endpoint);
 	return response.json();
 }
+
+// TODO: @Dhruv
+export async function getClothingApi(content: string) {
+ return {}
+}
