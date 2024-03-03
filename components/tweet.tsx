@@ -11,6 +11,10 @@ import DynamicSkeleton from "./dynamicskeleton";
 import {Replies} from "@/components/replies";
 
 
+// set to false to always show the original picture
+const FILTER_ON_AVATARS = false;
+
+
 export default function TweetComponent({ tweet, filterId, isDynamic }: { tweet: Tweet, filterId: FilterId | null, isDynamic: boolean }) {
 
 		const reallyDynamic = isDynamic && tweet.content?.length > 5;
@@ -23,9 +27,11 @@ export default function TweetComponent({ tweet, filterId, isDynamic }: { tweet: 
 				<div className="flex border-b border-gray-700 p-4 bg-black">
 						<div className="mr-4">
 								<Avatar className="h-10 w-10">
-										<AvatarImage src={tweet.user.avatarUrl || "https://github.com/shadcn.png"} alt={tweet.user.username} />
+										{FILTER_ON_AVATARS && <FilteredImage imageUrl={tweet.user.avatarUrl || "https://github.com/shadcn.png"} filterId={filterId} altText={tweet.user.username} className="aspect-square h-full w-full"/>}
+
+										{!FILTER_ON_AVATARS && <AvatarImage src={tweet.user.avatarUrl || "https://github.com/shadcn.png"} alt={tweet.user.username} />}
 										{/* Fallback icon in case Avatar component doesn't handle missing images */}
-										<UserIcon className="text-gray-300" height="40" width="40" />
+										{!FILTER_ON_AVATARS && <UserIcon className="text-gray-300" height="40" width="40" />}
 								</Avatar>
 						</div>
 						<div className="flex flex-col">
@@ -49,7 +55,7 @@ export default function TweetComponent({ tweet, filterId, isDynamic }: { tweet: 
 								)}
 								{/* Optionally render media if exists */}
 								{tweet.media?.map((media, index) => (
-									<div key={index} className="mt-2 w-full h-96 overflow-hidden rounded-lg relative">
+									<div key={index} className="mt-2 w-full h-96 overflow-hidden rounded-lg relative" style={{ height: '28rem' }}>
 										{media.type === 'image' ? (
 											<FilteredImage
 												imageUrl={media.url}
