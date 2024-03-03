@@ -1,8 +1,20 @@
-// components/Tweet.js
+import * as React from "react";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { UserIcon, CheckBadgeIcon } from '@heroicons/react/20/solid';
 import { Tweet } from "@/types/tweets";
 import { formatDate } from "@/lib/utils";
+import {useClassifiedTweet} from "@/components/classifier";
+import TweetComponentSkeleton from "@/components/tweetskeleton";
+
+
+export function TweetAI({ tweet }: { tweet: Tweet }) {
+
+		const {isClassified, tweetComponent} = useClassifiedTweet(tweet);
+
+		return (
+				<TweetComponent tweet={tweet} DynamicComponent={isClassified ? tweetComponent : <TweetComponentSkeleton/>} />
+		);
+}
 
 export default function TweetComponent({ tweet, DynamicComponent }: { tweet: Tweet, DynamicComponent?: React.ReactNode }) {
 		return (
