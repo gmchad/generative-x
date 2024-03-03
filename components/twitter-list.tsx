@@ -13,8 +13,22 @@ export default function TwitterList() {
 		// take tweets passed as Query Params or use the initialTweets as fallback
 		const queryParams = useSearchParams();
 		const queryTweetsEncoded = queryParams.get('tweets') || null;
-		const queryTweets = queryTweetsEncoded ? JSON.parse(decodeURIComponent(queryTweetsEncoded)) as TweetType[] : null;
-
+		let queryTweets: TweetType[] | null = null;
+		if (queryTweetsEncoded) {
+				let decoded: string | null = null;
+				try {
+						decoded = decodeURIComponent(queryTweetsEncoded);
+				} catch (error) {
+						console.error("Error decoding query tweets", error, queryTweetsEncoded);
+				}
+				if (decoded) {
+						try {
+								queryTweets = JSON.parse(decoded) as TweetType[];
+						} catch (error) {
+								console.error("Error parsing query tweets", error, decoded);
+						}
+				}
+		}
 		const [displayedTweets, setDisplayedTweets] = useState(queryTweets || initialTweets);
 		const endOfListRef = useRef<HTMLDivElement>(null);
 
