@@ -7,13 +7,14 @@ import {useClassifiedTweet} from "@/components/classifier";
 import TweetComponentSkeleton from "@/components/tweetskeleton";
 import {FilteredImage} from "@/components/filteredimage";
 import {FilterId} from "@/components/filters";
+import DynamicSkeleton from "./dynamicskeleton";
 
 
 export default function TweetComponent({ tweet, filterId, isDynamic }: { tweet: Tweet, filterId: FilterId | null, isDynamic: boolean }) {
 
 		const {isClassified, tweetComponent, replacedTweetText} = useClassifiedTweet(tweet, isDynamic);
 
-		const DynamicComponent = isClassified ? tweetComponent : isDynamic ? <TweetComponentSkeleton/> : null;
+		const DynamicComponent = isClassified ? tweetComponent : isDynamic ? <DynamicSkeleton/> : null;
 
 		return (
 				<div className="flex border-b border-gray-700 p-4 bg-black">
