@@ -106,6 +106,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     const tweets = parseTweetsFromTimeline(eTimeline);
     console.log('Tweets:', tweets);
     const queryString = encodeURIComponent(JSON.stringify(tweets));
+    console.log('Encoded length:', queryString.length);
 
     // IFrame to our Frontend, passing Tweets as Query
     const iFrameHeight = Math.max(600, eTimeline.offsetHeight);
