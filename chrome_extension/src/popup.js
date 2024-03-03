@@ -1,6 +1,7 @@
 document.getElementById('xTimelineButton').addEventListener('click', () => {
+    const openInNewWindow = document.getElementById('newWindowCheckbox').checked;
     chrome.tabs.query({active: true, currentWindow: true}, function (tabs) {
-        chrome.tabs.sendMessage(tabs[0].id, {action: "parseXTimeline"});
+        chrome.tabs.sendMessage(tabs[0].id, {action: "parseXTimeline", openInNewWindow: openInNewWindow});
     });
 });
 

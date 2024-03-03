@@ -96,6 +96,11 @@
         .filter-button.disabled:hover {
             background-color: orangered;
         }
+
+        .menu-option {
+            font-size: 12px;
+            margin-top: 0.5rem;
+        }
     </style>
 </head>
 <body>
@@ -106,6 +111,10 @@
     <button class="filter-button bolder" id="xTimelineButton">&#120143; Timeline</button>
     <button class="filter-button disabled" id="fbFilterButton">Facebook Feed</button>
     <button class="filter-button disabled" id="moreFilterButton">More...</button>
+    <div class="menu-option">
+        <input type="checkbox" id="newWindowCheckbox">
+        <label for="newWindowCheckbox">New Window</label>
+    </div>
 </div>
 
 <script src="popup.js"></script>
