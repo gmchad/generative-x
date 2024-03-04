@@ -93,6 +93,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     if (request.action !== "parseXTimeline")
         return;
     const openInNewWindow = request.openInNewWindow;
+    const demoData = request.demoData;
 
     // @Timeline: parse and then replace
     let eTimeline = document.querySelector('[aria-label="Timeline: Your Home Timeline"]');
@@ -106,9 +107,9 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     console.log('Timeline found:', eTimeline);
 
     // Scrape Tweets from the timeline
-    const tweets = parseTweetsFromTimeline(eTimeline);
+    const tweets = demoData ? [] : parseTweetsFromTimeline(eTimeline);
     console.log('Tweets:', tweets);
-    const queryString = encodeURIComponent(JSON.stringify(tweets));
+    const queryString = demoData ? '' : encodeURIComponent(JSON.stringify(tweets));
     console.log('Encoded length:', queryString.length);
 
     if (openInNewWindow) {
@@ -122,7 +123,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     // IFrame to our Frontend, passing Tweets as Query
     const iFrameHeight = Math.max(600, eTimeline.offsetHeight);
     const iFrontend = document.createElement('iframe');
-    iFrontend.src = `https://spc-openai-hackathon.vercel.app/?tweets=${queryString}`;
+    iFrontend.src = demoData ? `https://spc-openai-hackathon.vercel.app/` : `https://spc-openai-hackathon.vercel.app/?tweets=${queryString}`;
     iFrontend.frameBorder = '0';
     // iFrontend.scrolling = 'no';
     iFrontend.style.width = '100%';
