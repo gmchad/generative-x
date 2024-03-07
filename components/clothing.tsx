@@ -27,19 +27,15 @@ const TwitterCard: React.FC<TwitterCardProps> = ({
   description,
   item_type,
 }) => {
-  const handleClick = () => {
-    // You can customize the behavior when the image is clicked, such as navigating to the item link
-    window.open(item_link, "_blank");
-  };
-
   return (
     <div style={{ padding: "10px", border: "1px solid #ccc", margin: "10px" }}>
-      <img
-        src={img_src}
-        alt={item_type}
-        style={{ width: "300%", height: "300%", cursor: "pointer" }}
-        onClick={handleClick}
-      />
+      <a href={item_link} target="_blank" rel="noopener noreferrer">
+        <img
+          src={img_src}
+          alt={item_type}
+          style={{ width: "100%", height: "auto", cursor: "pointer" }}
+        />
+      </a>
       {/* <div>
         <p>{description}</p>
         <p>Type: {item_type}</p>

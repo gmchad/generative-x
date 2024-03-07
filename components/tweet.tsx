@@ -14,9 +14,16 @@ import { FilterId, getFilterVoiceId } from "@/components/filters";
 import DynamicSkeleton from "./dynamicskeleton";
 import { Replies } from "@/components/replies";
 import { EXPERIMENTAL_speakTextStream } from "@/components/elevenlabs.client";
+import { classifyTweetByContent } from "@/app/actions";
 
 // set to false to always show the original picture
 const FILTER_ON_AVATARS = true;
+
+type Classification = {
+  component: React.ReactNode;
+  isDone: boolean;
+  isReply?: boolean;
+};
 
 export default function TweetComponent({
   tweet,
@@ -29,14 +36,44 @@ export default function TweetComponent({
 }) {
   const reallyDynamic = isDynamic && tweet.content?.length > 5;
 
-  const { isClassified, isReply, tweetComponent, replacedTweetText } =
-    useClassifiedTweet(tweet, reallyDynamic);
+  // const DynamicComponent = isClassified ? tweetComponent : reallyDynamic ? <DynamicSkeleton/> : null;
+  //const {isClassified, isReply, tweetComponent, replacedTweetText} = useClassifiedTweet(tweet, reallyDynamic);
 
-  const DynamicComponent = isClassified ? (
-    tweetComponent
-  ) : reallyDynamic ? (
-    <DynamicSkeleton />
+  const [classification, setClassification] = React.useState<Classification>({
+    component: <></>,
+    isDone: false,
+  });
+
+  const DynamicComponent = reallyDynamic ? (
+    classification.isDone ? (
+      classification.component
+    ) : (
+      <DynamicSkeleton />
+    )
   ) : null;
+
+  let replacedTweetText = tweet.content;
+
+  React.useEffect(() => {
+    // async function doClassify() {
+    //   setClassification(await classifyTweetByContent(tweet, filterId));
+    // }
+    if (reallyDynamic) {
+      classifyTweetByContent(tweet, filterId).then((result) =>
+        result.promise.then((res) => {
+          setClassification({
+            component: res.component,
+            isDone: res.isDone,
+            isReply: res.isReply,
+          });
+        }),
+      );
+    }
+
+    // if (reallyDynamic) {
+    // 	doClassify();
+    // }
+  }, [tweet, reallyDynamic]);
 
   const voiceId = getFilterVoiceId(filterId) || undefined;
 
@@ -128,7 +165,7 @@ export default function TweetComponent({
           </div>
         )}
         {/* Replies */}
-        {isReply && (
+        {classification.isReply && (
           <Replies
             tweetId={tweet.id}
             tweetContent={tweet.content}

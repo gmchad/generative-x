@@ -1,3 +1,4 @@
+"use client";
 import { AvatarImage, AvatarFallback, Avatar } from "@/components/ui/avatar";
 import {
   CarouselItem,
