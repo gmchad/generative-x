@@ -3,10 +3,7 @@
   "name": "Twitter Filters",
   "version": "1.0",
   "description": "Make Twitter ✨ Again",
-  "permissions": [
-    "activeTab",
-    "scripting"
-  ],
+  "permissions": ["activeTab", "scripting"],
   "action": {
     "default_popup": "popup.html",
     "default_icon": {
@@ -17,12 +14,8 @@
   },
   "content_scripts": [
     {
-      "matches": [
-        "*://*.twitter.com/*"
-      ],
-      "js": [
-        "content.js"
-      ]
+      "matches": ["*://*.twitter.com/*"],
+      "js": ["content.js"]
     }
   ],
   "icons": {

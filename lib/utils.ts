@@ -1,20 +1,20 @@
-import { type ClassValue, clsx } from "clsx"
-import { twMerge } from "tailwind-merge"
-import { ToolDefinition } from '@/lib/tool-definition';
-import { OpenAIStream } from 'ai';
-import type OpenAI from 'openai';
-import zodToJsonSchema from 'zod-to-json-schema';
+import { type ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
+import { ToolDefinition } from "@/lib/tool-definition";
+import { OpenAIStream } from "ai";
+import type OpenAI from "openai";
+import zodToJsonSchema from "zod-to-json-schema";
 
 export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
+  return twMerge(clsx(inputs));
 }
 
 export const formatDate = (isoString: string) => {
   // Placeholder for date formatting function
   return new Date(isoString).toLocaleDateString("en-US", {
-    day: 'numeric',
-    month: 'short',
-    year: 'numeric',
+    day: "numeric",
+    month: "short",
+    year: "numeric",
   });
 };
 
@@ -29,17 +29,16 @@ const consumeStream = async (stream: ReadableStream) => {
 export function runOpenAICompletion<
   T extends Omit<
     Parameters<typeof OpenAI.prototype.chat.completions.create>[0],
-    'functions'
+    "functions"
   > & {
     functions: ToolDefinition<any, any>[];
   },
 >(openai: OpenAI, params: T) {
-  let text = '';
+  let text = "";
   let hasFunction = false;
 
-  type FunctionNames = T['functions'] extends Array<any>
-    ? T['functions'][number]['name']
-    : never;
+  type FunctionNames =
+    T["functions"] extends Array<any> ? T["functions"][number]["name"] : never;
 
   let onTextContent: (text: string, isFinal: boolean) => void = () => {};
 
@@ -53,7 +52,7 @@ export function runOpenAICompletion<
         (await openai.chat.completions.create({
           ...rest,
           stream: true,
-          functions: functions.map(fn => ({
+          functions: functions.map((fn) => ({
             name: fn.name,
             description: fn.description,
             parameters: zodToJsonSchema(fn.parameters) as Record<
@@ -71,7 +70,7 @@ export function runOpenAICompletion<
           },
           onToken(token) {
             text += token;
-            if (text.startsWith('{')) return;
+            if (text.startsWith("{")) return;
             onTextContent(text, false);
           },
           onFinal() {

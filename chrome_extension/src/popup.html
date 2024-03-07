@@ -1,126 +1,211 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
+  <head>
     <title>Sparkles Menu</title>
     <!-- Style Menu -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
     <style>
-        html, body, div, span, applet, object, iframe,
-        h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-        a, abbr, acronym, address, big, cite, code,
-        del, dfn, em, img, ins, kbd, q, s, samp,
-        small, strike, strong, sub, sup, tt, var,
-        b, u, i, center,
-        dl, dt, dd, ol, ul, li,
-        fieldset, form, label, legend,
-        table, caption, tbody, tfoot, thead, tr, th, td,
-        article, aside, canvas, details, embed,
-        figure, figcaption, footer, header, hgroup,
-        menu, nav, output, ruby, section, summary,
-        time, mark, audio, video {
-            margin: 0;
-            padding: 0;
-            border: 0;
-            font: inherit;
-            vertical-align: baseline;
-        }
+      html,
+      body,
+      div,
+      span,
+      applet,
+      object,
+      iframe,
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6,
+      p,
+      blockquote,
+      pre,
+      a,
+      abbr,
+      acronym,
+      address,
+      big,
+      cite,
+      code,
+      del,
+      dfn,
+      em,
+      img,
+      ins,
+      kbd,
+      q,
+      s,
+      samp,
+      small,
+      strike,
+      strong,
+      sub,
+      sup,
+      tt,
+      var,
+      b,
+      u,
+      i,
+      center,
+      dl,
+      dt,
+      dd,
+      ol,
+      ul,
+      li,
+      fieldset,
+      form,
+      label,
+      legend,
+      table,
+      caption,
+      tbody,
+      tfoot,
+      thead,
+      tr,
+      th,
+      td,
+      article,
+      aside,
+      canvas,
+      details,
+      embed,
+      figure,
+      figcaption,
+      footer,
+      header,
+      hgroup,
+      menu,
+      nav,
+      output,
+      ruby,
+      section,
+      summary,
+      time,
+      mark,
+      audio,
+      video {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        font: inherit;
+        vertical-align: baseline;
+      }
 
-        /* HTML5 display-role reset for older browsers */
-        article, aside, details, figcaption, figure,
-        footer, header, hgroup, menu, nav, section {
-            display: block;
-        }
+      /* HTML5 display-role reset for older browsers */
+      article,
+      aside,
+      details,
+      figcaption,
+      figure,
+      footer,
+      header,
+      hgroup,
+      menu,
+      nav,
+      section {
+        display: block;
+      }
 
-        ol, ul {
-            list-style: none;
-        }
+      ol,
+      ul {
+        list-style: none;
+      }
 
-        body {
-            color: #CCC;
-            font-family: 'Inter', sans-serif;
-            font-size: 16px;
-            line-height: 1;
-        }
+      body {
+        color: #ccc;
+        font-family: "Inter", sans-serif;
+        font-size: 16px;
+        line-height: 1;
+      }
 
+      .menu-main {
+        display: grid;
+        padding: 1rem;
+        min-width: 180px;
+        background-color: black;
+      }
 
-        .menu-main {
-            display: grid;
-            padding: 1rem;
-            min-width: 180px;
-            background-color: black;
-        }
+      .menu-title {
+        font-size: 14px;
+        white-space: nowrap;
+      }
 
-        .menu-title {
-            font-size: 14px;
-            white-space: nowrap;
-        }
+      .menu-text {
+        font-size: 13px;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        margin-top: 2rem;
+      }
 
-        .menu-text {
-            font-size: 13px;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            margin-top: 2rem;
-        }
+      .filter-button {
+        background-color: #ddd;
+        color: #333;
+        font-size: 14px;
+        /*font-weight: 600;*/
+        border-radius: 6px;
+        /*border: 1px solid #bbb;*/
+        border: none;
+        padding: 8px 16px;
+        margin-top: 0.25rem;
+        min-width: 160px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        margin-bottom: 0.5rem;
+        text-align: left;
+        transition: all 0.2s;
+      }
 
-        .filter-button {
-            background-color: #ddd;
-            color: #333;
-            font-size: 14px;
-            /*font-weight: 600;*/
-            border-radius: 6px;
-            /*border: 1px solid #bbb;*/
-            border: none;
-            padding: 8px 16px;
-            margin-top: 0.25rem;
-            min-width: 160px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            margin-bottom: 0.5rem;
-            text-align: left;
-            transition: all 0.2s;
-        }
+      .bolder {
+        font-weight: 600;
+      }
 
-        .bolder {
-            font-weight: 600;
-        }
+      .filter-button:hover {
+        background-color: lime;
+        /*font-weight: 600;*/
+        cursor: pointer;
+      }
 
-        .filter-button:hover {
-            background-color: lime;
-            /*font-weight: 600;*/
-            cursor: pointer;
-        }
+      .filter-button.disabled:hover {
+        background-color: orangered;
+      }
 
-        .filter-button.disabled:hover {
-            background-color: orangered;
-        }
-
-        .menu-option {
-            font-size: 12px;
-            margin-top: 0.5rem;
-        }
+      .menu-option {
+        font-size: 12px;
+        margin-top: 0.5rem;
+      }
     </style>
-</head>
-<body>
-
-<div class="menu-main">
-    <div class="menu-title"><strong>SPCxOAI</strong> Hackathon</div>
-    <h1 class="menu-text">Generative Filters</h1>
-    <button class="filter-button bolder" id="xTimelineButton">&#120143; Timeline</button>
-    <button class="filter-button disabled" id="fbFilterButton">Facebook Feed</button>
-    <button class="filter-button disabled" id="moreFilterButton">More...</button>
-    <div class="menu-option">
-        <input type="checkbox" id="newWindowCheckbox">
+  </head>
+  <body>
+    <div class="menu-main">
+      <div class="menu-title"><strong>SPCxOAI</strong> Hackathon</div>
+      <h1 class="menu-text">Generative Filters</h1>
+      <button class="filter-button bolder" id="xTimelineButton">
+        &#120143; Timeline
+      </button>
+      <button class="filter-button disabled" id="fbFilterButton">
+        Facebook Feed
+      </button>
+      <button class="filter-button disabled" id="moreFilterButton">
+        More...
+      </button>
+      <div class="menu-option">
+        <input type="checkbox" id="newWindowCheckbox" />
         <label for="newWindowCheckbox">New Window</label>
-    </div>
-    <div class="menu-option">
-        <input type="checkbox" id="demoDataCheckbox">
+      </div>
+      <div class="menu-option">
+        <input type="checkbox" id="demoDataCheckbox" />
         <label for="demoDataCheckbox">Demo Data</label>
+      </div>
     </div>
-</div>
 
-<script src="popup.js"></script>
-</body>
+    <script src="popup.js"></script>
+  </body>
 </html>
