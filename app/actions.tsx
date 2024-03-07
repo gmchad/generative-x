@@ -14,11 +14,11 @@ import {
   getReplyApi,
 } from "@/lib/data";
 
-import { Weather } from "@/components/weather";
-import { Stocks } from "@/components/stocks";
-import { Politics } from "@/components/politics";
-import { Clothing } from "@/components/clothing";
-import { Reply } from "@/components/reply";
+import { Weather, WeatherProps } from "@/components/weather";
+import { Stocks, StockProps } from "@/components/stocks";
+import { Politics, PoliticalProps } from "@/components/politics";
+import { Clothing, ClothingProps } from "@/components/clothing";
+import { Reply, ReplyProps } from "@/components/reply";
 
 import type { Tweet } from "@/types/tweets";
 import {
@@ -43,6 +43,8 @@ const openai = new OpenAI({
 // 	}
 // 	return <></>;
 // }
+
+interface Classification {}
 
 export async function classifyTweetByContent(
   tweet: Tweet,
@@ -86,12 +88,11 @@ async function classify(
     // BUG: Clothing component is a react client component
     // Specifically the carousel component is "use client"
     // This is causing issues with server components
-
-    // if (tweet.media && tweet.media.length && tweet.media[0].url) {
-    //   let clothingData = await getClothingApi(tweet.media[0].url);
-    //   onUpdateDynamic(<Clothing props={clothingData} />, true);
-    // }
-    return onUpdateDynamic(<></>, true, true);
+    if (tweet.media && tweet.media.length && tweet.media[0].url) {
+      let clothingData = await getClothingApi(tweet.media[0].url);
+      onUpdateDynamic(<Clothing props={clothingData} />, true);
+    }
+    //return onUpdateDynamic(<></>, true, true);
   }
 
   const completion = runOpenAICompletion(openai, {
