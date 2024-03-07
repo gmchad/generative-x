@@ -7,7 +7,7 @@ import {
   Card,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import LineChart from "./linechart";
+import LineChart from "../ui/linechart";
 
 type ClosePrices = {
   [key: string]: number;

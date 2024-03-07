@@ -14,7 +14,7 @@ import {
   TweetEngagement,
 } from "@/types/tweets";
 import { tweetData as hardcodedTweets } from "@/lib/test-data";
-import { FilterId, FiltersList } from "@/components/filters";
+import { FilterId, FiltersList } from "@/lib/filters";
 
 const queryClient = new QueryClient();
 

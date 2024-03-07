@@ -12,10 +12,10 @@ import {
   getClothingApi,
 } from "@/lib/data";
 
-import { Weather } from "@/components/weather";
-import { Stocks } from "@/components/stocks";
-import { Politics } from "@/components/politics";
-import { Clothing } from "./clothing";
+import { Weather } from "@/components/dui/weather";
+import { Stocks } from "@/components/dui/stocks";
+import { Politics } from "@/components/dui/politics";
+import { Clothing } from "./dui/clothing";
 
 import type { Tweet } from "@/types/tweets";
 

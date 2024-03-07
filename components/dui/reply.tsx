@@ -15,8 +15,8 @@ import {
   CardFooter,
   Card,
 } from "@/components/ui/card";
-import { Button } from "./ui/button";
-import { EXPERIMENTAL_speakTextStream } from "@/components/elevenlabs.client";
+import { Button } from "../ui/button";
+import { EXPERIMENTAL_speakTextStream } from "@/lib/elevenlabs.client";
 import { SpeakerWaveIcon } from "@heroicons/react/20/solid";
 
 export function Reply({

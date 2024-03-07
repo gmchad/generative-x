@@ -10,10 +10,10 @@ import { formatDate } from "@/lib/utils";
 import { useClassifiedTweet } from "@/components/classifier";
 import TweetComponentSkeleton from "@/components/tweetskeleton";
 import { FilteredImage } from "@/components/filteredimage";
-import { FilterId, getFilterVoiceId } from "@/components/filters";
+import { FilterId, getFilterVoiceId } from "@/lib/filters";
 import DynamicSkeleton from "./dynamicskeleton";
 import { Replies } from "@/components/replies";
-import { EXPERIMENTAL_speakTextStream } from "@/components/elevenlabs.client";
+import { EXPERIMENTAL_speakTextStream } from "@/lib/elevenlabs.client";
 import { classifyTweetByContent } from "@/app/actions";
 
 // set to false to always show the original picture
