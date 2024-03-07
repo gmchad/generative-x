@@ -18,9 +18,14 @@ export async function getPoliticalApi(content: string) {
   return response.json();
 }
 
-// TODO: @Dhruv
 export async function getClothingApi(content: string) {
   const endpoint = `${RENDER_ENDPOINT}/get_clothing?url=${encodeURIComponent(content)}`;
+  const response = await fetch(endpoint);
+  return response.json();
+}
+
+export async function getReplyApi(content: string, adjectives: string) {
+  const endpoint = `${RENDER_ENDPOINT}/question_replies?text=${encodeURIComponent(content)}&adjective=${encodeURIComponent(adjectives)}`;
   const response = await fetch(endpoint);
   return response.json();
 }
