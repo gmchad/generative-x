@@ -14,11 +14,11 @@ import {
   getReplyApi,
 } from "@/lib/data";
 
-import { Weather, WeatherProps } from "@/components/dui/weather";
-import { Stocks, StockProps } from "@/components/dui/stocks";
-import { Politics, PoliticalProps } from "@/components/dui/politics";
-import { Clothing, ClothingProps } from "@/components/dui/clothing";
-import { Reply, ReplyProps } from "@/components/dui/reply";
+import { Weather } from "@/components/dui/weather";
+import { Stocks } from "@/components/dui/stocks";
+import { Politics } from "@/components/dui/politics";
+import { Clothing } from "@/components/dui/clothing";
+import { Reply } from "@/components/dui/reply";
 
 import type { Tweet } from "@/types/tweets";
 import {
