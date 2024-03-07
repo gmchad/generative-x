@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useQuery } from "react-query";
-import { FilterId, getResponseAdjectives } from "@/components/filters";
-import { Reply } from "@/components/reply";
+import { FilterId, getResponseAdjectives } from "@/lib/filters";
+import { Reply } from "@/components/dui/reply";
 import { AvatarImage, AvatarFallback, Avatar } from "@/components/ui/avatar";
 
 const RENDER_ENDPOINT = "https://spc-openai-hackathon-backend.onrender.com/";

@@ -8,10 +8,10 @@ import {
 import { Tweet } from "@/types/tweets";
 import { formatDate } from "@/lib/utils";
 import { FilteredImage } from "@/components/filteredimage";
-import { FilterId, getFilterVoiceId } from "@/components/filters";
+import { FilterId, getFilterVoiceId } from "@/lib/filters";
 import DynamicSkeleton from "./dynamicskeleton";
 import { Replies } from "@/components/replies";
-import { EXPERIMENTAL_speakTextStream } from "@/components/elevenlabs.client";
+import { EXPERIMENTAL_speakTextStream } from "@/lib/elevenlabs.client";
 import { classifyTweetByContent } from "@/app/actions";
 
 // set to false to always show the original picture

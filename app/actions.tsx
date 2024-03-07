@@ -14,18 +14,18 @@ import {
   getReplyApi,
 } from "@/lib/data";
 
-import { Weather, WeatherProps } from "@/components/weather";
-import { Stocks, StockProps } from "@/components/stocks";
-import { Politics, PoliticalProps } from "@/components/politics";
-import { Clothing, ClothingProps } from "@/components/clothing";
-import { Reply, ReplyProps } from "@/components/reply";
+import { Weather, WeatherProps } from "@/components/dui/weather";
+import { Stocks, StockProps } from "@/components/dui/stocks";
+import { Politics, PoliticalProps } from "@/components/dui/politics";
+import { Clothing, ClothingProps } from "@/components/dui/clothing";
+import { Reply, ReplyProps } from "@/components/dui/reply";
 
 import type { Tweet } from "@/types/tweets";
 import {
   FilterId,
   getFilterVoiceId,
   getResponseAdjectives,
-} from "@/components/filters";
+} from "@/lib/filters";
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY || "",
@@ -76,15 +76,13 @@ async function classify(
   const tweetContent = tweet.content;
 
   // Hardcode Clothing UI for now
+  // Since routing requires GPT4V to interpret
+  // The image as containing clothing
   if (tweet.user.username === "@TechBroDrip") {
-    // BUG: Clothing component is a react client component
-    // Specifically the carousel component is "use client"
-    // This is causing issues with server components
     if (tweet.media && tweet.media.length && tweet.media[0].url) {
       let clothingData = await getClothingApi(tweet.media[0].url);
       onUpdateDynamic(<Clothing props={clothingData} />, true);
     }
-    //return onUpdateDynamic(<></>, true, true);
   }
 
   const completion = runOpenAICompletion(openai, {

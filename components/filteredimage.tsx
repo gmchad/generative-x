@@ -1,5 +1,5 @@
 import React from "react";
-import { FilterId, getImageFilter } from "@/components/filters";
+import { FilterId, getImageFilter } from "@/lib/filters";
 
 // Initialize a cache outside of the component
 const clientSideImageCache = new Map();
