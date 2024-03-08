@@ -7,8 +7,6 @@ import {
 } from "@heroicons/react/20/solid";
 import { Tweet } from "@/types/tweets";
 import { formatDate } from "@/lib/utils";
-import { useClassifiedTweet } from "@/components/classifier";
-import TweetComponentSkeleton from "@/components/tweetskeleton";
 import { FilteredImage } from "@/components/filteredimage";
 import { FilterId, getFilterVoiceId } from "@/components/filters";
 import DynamicSkeleton from "./dynamicskeleton";
@@ -73,7 +71,7 @@ export default function TweetComponent({
     // if (reallyDynamic) {
     // 	doClassify();
     // }
-  }, [tweet, reallyDynamic]);
+  }, [tweet, reallyDynamic, filterId]);
 
   const voiceId = getFilterVoiceId(filterId) || undefined;
 

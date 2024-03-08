@@ -48,26 +48,18 @@ export async function classifyTweetByContent(
   tweet: Tweet,
   filterId: FilterId | null,
 ) {
-  const updateState = (): Promise<{
-    component: React.ReactNode;
-    isDone: boolean;
-    isReply?: boolean;
-  }> => {
-    return new Promise((resolve, reject) => {
-      classify(tweet, filterId, (component, isDone, isReply) => {
-        resolve({ component, isDone, isReply });
-      });
-    });
-  };
+  const promise = new Promise<{ component: React.ReactNode, isDone: boolean, isReply: boolean }>((resolve, _reject) => {
+    classify(tweet, filterId,
+      (component, isDone, isReply) => resolve({component, isDone, isReply: isReply ?? false}),
+    );
+  });
 
-  async function doClassify() {
-    return await updateState();
-  }
-
-  // Weird behavior of server components
+  // Weird behavior of server components:
   // They run sequentially unless wrapped in a promise
   // Ref: https://www.youtube.com/watch?v=CDZg3maL9q0
-  return { promise: doClassify() };
+  //
+  // This fixes it on `npm run dev` but not on production `npm run build && npm run start`
+  return { promise: promise };
 }
 
 async function classify(
