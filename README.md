@@ -64,3 +64,5 @@ This application gets better with more components. If you have ideas for compone
 
 Docs on adding new components flow coming soon.
 
+## TODO
+- [ ] move function calling router out of `actions/tsx` and into it's own api (there is currently an issue where server action calls are not parallelized in production see https://github.com/vercel/next.js/discussions/50743)
