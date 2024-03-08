@@ -136,17 +136,15 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   if (openInNewWindow) {
     // Example of opening a new window with a URL including the query string.
     // You might want to adjust this to fit your specific requirements.
-    const newWindowUrl = `https://spc-openai-hackathon.vercel.app/?tweets=${queryString}`;
-    window.open(newWindowUrl, "_blank");
+    window.open(request.url + `?tweets=${queryString}`, "_blank");
     return;
   }
 
   // IFrame to our Frontend, passing Tweets as Query
   const iFrameHeight = Math.max(600, eTimeline.offsetHeight);
   const iFrontend = document.createElement("iframe");
-  iFrontend.src = demoData
-    ? `https://spc-openai-hackathon.vercel.app/`
-    : `https://spc-openai-hackathon.vercel.app/?tweets=${queryString}`;
+  iFrontend.src = demoData ? request.url : request.url + `?tweets=${queryString}`;
+
   iFrontend.frameBorder = "0";
   // iFrontend.scrolling = 'no';
   iFrontend.style.width = "100%";

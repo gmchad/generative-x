@@ -163,6 +163,17 @@
         transition: all 0.2s;
       }
 
+      .url-input {
+        margin-top: 0.5rem;
+        min-width: 160px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        margin-bottom: 0.5rem;
+        text-align: left;
+        transition: all 0.2s;
+      }
+
       .bolder {
         font-weight: 600;
       }
@@ -203,6 +214,14 @@
       <div class="menu-option">
         <input type="checkbox" id="demoDataCheckbox" />
         <label for="demoDataCheckbox">Demo Data</label>
+      </div>
+      <div class="menu-option">
+        <input type="checkbox" id="customUrlCheckbox" name="customUrlCheckbox">
+        <label for="customUrlCheckbox">Use custom URL</label><br>
+      </div>
+      <div class="url-input">
+        <!-- Hidden input field for custom URL -->
+        <input type="url" id="customUrlInput" name="customUrlInput" placeholder="http://localhost:3000" style="display:none;">
       </div>
     </div>
 
