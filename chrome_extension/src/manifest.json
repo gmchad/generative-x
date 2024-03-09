@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "Twitter Filters",
+  "name": "Generative X",
   "version": "1.0",
   "description": "Make Twitter ✨ Again",
   "permissions": ["activeTab", "scripting"],
